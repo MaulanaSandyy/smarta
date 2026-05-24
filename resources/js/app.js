@@ -4,6 +4,7 @@ import focus from '@alpinejs/focus';
 import sidebar from './components/sidebar';
 import theme from './components/theme';
 import userMenu from './components/user-menu';
+import dataWarga from './components/data-warga';
 
 window.Alpine = Alpine;
 
@@ -11,5 +12,9 @@ Alpine.plugin(focus);
 Alpine.data('sidebar', sidebar);
 Alpine.data('theme', theme);
 Alpine.data('userMenu', userMenu);
+
+window.dataWarga = function(items, perPage) {
+    return dataWarga(items, perPage);
+};
 
 Alpine.start();
