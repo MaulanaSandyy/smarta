@@ -9,6 +9,7 @@ import dataSurat from './components/data-surat';
 import dataIuran from './components/data-iuran';
 import dataLaporan from './components/data-laporan';
 import dataAgenda from './components/data-agenda';
+import dataKas from './components/data-kas';
 
 window.Alpine = Alpine;
 
@@ -31,6 +32,9 @@ window.dataLaporan = function(items, perPage) {
 };
 window.dataAgenda = function(items, bulan, tahun) {
     return dataAgenda(items, bulan, tahun);
+};
+window.dataKas = function(items, perPage) {
+    return dataKas(items, perPage);
 };
 
 Alpine.start();

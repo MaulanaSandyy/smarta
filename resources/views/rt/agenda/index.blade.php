@@ -15,20 +15,20 @@
     @endphp
 
     <div x-data="dataAgenda({{ Js::from($agenda) }}, {{ $bulan }}, {{ $tahun }})">
-        <div class="flex items-center justify-between mb-6">
-            <div class="flex items-center gap-2">
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 mb-6">
+            <div class="flex items-center justify-between sm:justify-start gap-2">
                 <button class="btn-secondary btn-sm">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
-                    Bulan Sebelumnya
+                    <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+                    <span class="hidden sm:inline">Bulan Sebelumnya</span>
                 </button>
-                <h3 class="text-lg font-semibold text-text-primary px-3">Mei 2026</h3>
+                <h3 class="text-base sm:text-lg font-semibold text-text-primary px-2 sm:px-3">Mei 2026</h3>
                 <button class="btn-secondary btn-sm">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-                    Bulan Berikutnya
+                    <span class="hidden sm:inline">Bulan Berikutnya</span>
+                    <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                 </button>
             </div>
-            <button class="btn-primary btn-sm" @click="bukaForm()">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+            <button class="btn-primary btn-sm w-full sm:w-auto justify-center" @click="bukaForm()">
+                <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
                 Tambah Kegiatan
             </button>
         </div>
