@@ -11,6 +11,7 @@ import dataLaporan from './components/data-laporan';
 import dataAgenda from './components/data-agenda';
 import dataKas from './components/data-kas';
 import dataRonda from './components/data-ronda';
+import dataDirektori from './components/data-direktori';
 
 window.Alpine = Alpine;
 
@@ -39,6 +40,9 @@ window.dataKas = function(items, perPage) {
 };
 window.dataRonda = function(jadwal, posList) {
     return dataRonda(jadwal, posList);
+};
+window.dataDirektori = function(items, perPage) {
+    return dataDirektori(items, perPage);
 };
 
 Alpine.start();
