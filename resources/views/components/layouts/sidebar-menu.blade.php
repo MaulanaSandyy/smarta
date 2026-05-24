@@ -56,7 +56,7 @@ $menuItems = [
     ],
     [
         'label' => 'Direktori Warga',
-        'icon' => 'contact',
+        'icon' => 'book-open',
         'route' => 'rt.direktori',
         'active' => request()->routeIs('rt.direktori'),
     ],
