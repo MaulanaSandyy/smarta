@@ -125,9 +125,7 @@
                             <tr class="hover:bg-surface-secondary transition-colors">
                                 <td class="table-cell">
                                     <div class="flex items-center gap-3">
-                                        <div class="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 text-xs" :class="item.color">
-                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" :d="item.icon"/></svg>
-                                        </div>
+                                        <div class="w-8 h-8 rounded-full bg-primary-100 text-primary-600 flex items-center justify-center text-xs font-semibold shrink-0" x-text="item.name.charAt(0)"></div>
                                         <span class="font-medium text-text-primary" x-text="item.name"></span>
                                     </div>
                                 </td>
