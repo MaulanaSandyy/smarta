@@ -1,0 +1,66 @@
+<x-layouts.rt>
+    <x-slot:title>Agenda Kegiatan</x-slot:title>
+    <x-slot:subtitle>Jadwal kegiatan lingkungan RT 01</x-slot:subtitle>
+
+    <div class="flex items-center justify-between mb-6">
+        <div class="flex items-center gap-2">
+            <button class="btn-secondary btn-sm">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+                Bulan Sebelumnya
+            </button>
+            <h3 class="text-lg font-semibold text-text-primary px-3">Mei 2026</h3>
+            <button class="btn-secondary btn-sm">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                Bulan Berikutnya
+            </button>
+        </div>
+        <button class="btn-primary btn-sm">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+            Tambah Kegiatan
+        </button>
+    </div>
+
+    {{-- Timeline --}}
+    <div class="space-y-4">
+        @php
+            $agenda = [
+                ['tgl' => '25', 'hari' => 'Senin', 'bulan' => 'Mei', 'judul' => 'Posyandu Balita', 'waktu' => '08:00 - 11:00', 'tempat' => 'Balai RT', 'desc' => 'Pelayanan posyandu untuk balita dan ibu hamil.', 'badge' => 'Kesehatan', 'badgeClass' => 'badge-success'],
+                ['tgl' => '26', 'hari' => 'Selasa', 'bulan' => 'Mei', 'judul' => 'Rapat RT Bulanan', 'waktu' => '19:00 - 21:00', 'tempat' => 'Rumah Ketua RT', 'desc' => 'Rapat evaluasi kegiatan bulan ini dan perencanaan bulan depan.', 'badge' => 'Rapat', 'badgeClass' => 'badge-primary'],
+                ['tgl' => '28', 'hari' => 'Kamis', 'bulan' => 'Mei', 'judul' => 'Kerja Bakti Lingkungan', 'waktu' => '07:00 - 10:00', 'tempat' => 'Lingkungan RT 01', 'desc' => 'Kerja bakti membersihkan selokan dan lingkungan sekitar.', 'badge' => 'Kegiatan', 'badgeClass' => 'badge-warning'],
+                ['tgl' => '30', 'hari' => 'Sabtu', 'bulan' => 'Mei', 'judul' => 'Pengajian Akbar', 'waktu' => 'Ba\'da Maghrib', 'tempat' => 'Masjid Al-Barakah', 'desc' => 'Pengajian akbar dengan tema "Memperkuat Silaturahmi Antar Warga".', 'badge' => 'Keagamaan', 'badgeClass' => 'badge-primary'],
+                ['tgl' => '31', 'hari' => 'Minggu', 'bulan' => 'Mei', 'judul' => 'Senam Pagi Bersama', 'waktu' => '06:00 - 07:30', 'tempat' => 'Lapangan RT', 'desc' => 'Senam pagi bersama untuk menjaga kesehatan warga.', 'badge' => 'Olahraga', 'badgeClass' => 'badge-success'],
+            ];
+        @endphp
+        @foreach ($agenda as $a)
+            <x-ui.card>
+                <div class="flex items-start gap-4">
+                    <div class="text-center min-w-[48px]">
+                        <div class="text-2xl font-bold text-primary-600">{{ $a['tgl'] }}</div>
+                        <div class="text-xs text-text-muted">{{ $a['hari'] }}</div>
+                        <div class="text-xs text-text-muted">{{ $a['bulan'] }}</div>
+                    </div>
+                    <div class="w-px h-auto bg-border self-stretch"></div>
+                    <div class="flex-1 min-w-0">
+                        <div class="flex items-start justify-between gap-2">
+                            <div>
+                                <h3 class="text-base font-semibold text-text-primary">{{ $a['judul'] }}</h3>
+                                <div class="flex items-center gap-3 mt-1 text-xs text-text-muted">
+                                    <span class="flex items-center gap-1">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                        {{ $a['waktu'] }}
+                                    </span>
+                                    <span class="flex items-center gap-1">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                                        {{ $a['tempat'] }}
+                                    </span>
+                                </div>
+                            </div>
+                            <span class="{{ $a['badgeClass'] }}">{{ $a['badge'] }}</span>
+                        </div>
+                        <p class="text-sm text-text-secondary mt-2">{{ $a['desc'] }}</p>
+                    </div>
+                </div>
+            </x-ui.card>
+        @endforeach
+    </div>
+</x-layouts.rt>
