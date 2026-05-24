@@ -60,8 +60,84 @@
             this.search = '';
             this.statusFilter = '';
             this.page = 1;
+        },
+        generateTableHTML(includePrintStyles = false) {
+            const header = `<table border="1" cellpadding="6" cellspacing="0" style="border-collapse:collapse;width:100%;font-family:Arial,sans-serif;font-size:12px">
+                <thead>
+                    <tr style="background:#4f46e5;color:white">
+                        <th style="text-align:left;padding:8px">Nama</th>
+                        <th style="text-align:left;padding:8px">NIK</th>
+                        <th style="text-align:left;padding:8px">KK</th>
+                        <th style="text-align:left;padding:8px">Alamat</th>
+                        <th style="text-align:left;padding:8px">Status</th>
+                        <th style="text-align:left;padding:8px">No. Telepon</th>
+                    </tr>
+                </thead>
+                <tbody>`;
+            const rows = this.filteredItems.map(item =>
+                `<tr>
+                    <td style="padding:6px;border:1px solid #ddd">${this.escapeHtml(item.name)}</td>
+                    <td style="padding:6px;border:1px solid #ddd">${this.escapeHtml(item.nik)}</td>
+                    <td style="padding:6px;border:1px solid #ddd">${this.escapeHtml(item.kk)}</td>
+                    <td style="padding:6px;border:1px solid #ddd">${this.escapeHtml(item.alamat)}</td>
+                    <td style="padding:6px;border:1px solid #ddd">${this.escapeHtml(item.status)}</td>
+                    <td style="padding:6px;border:1px solid #ddd">${this.escapeHtml(item.phone)}</td>
+                </tr>`
+            ).join('');
+            const footer = `</tbody></table>`;
+            const title = '<h2 style="font-family:Arial,sans-serif;margin-bottom:16px">Data Warga RT 01</h2>';
+            return includePrintStyles
+                ? `<div style="padding:20px">${title}<p style="font-size:12px;color:#666;margin-bottom:12px">Dicetak: ${new Date().toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>${header}${rows}${footer}</div>`
+                : `${header}${rows}${footer}`;
+        },
+        escapeHtml(str) {
+            const div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
+        },
+        exportExcel() {
+            const table = this.generateTableHTML();
+            const html = `<html><head><meta charset="UTF-8"><title>Data Warga RT 01</title></head><body>${table}</body></html>`;
+            const blob = new Blob([html], { type: 'application/vnd.ms-excel' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `Data_Warga_RT_01_${new Date().toISOString().slice(0,10)}.xls`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        },
+        printPDF() {
+            const content = this.generateTableHTML(true);
+            const style = `@media print{body{margin:0;padding:0}}`;
+            const win = window.open('', '_blank');
+            win.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Data Warga RT 01</title><style>${style}</style></head><body>${content}</body></html>`);
+            win.document.close();
+            win.focus();
+            setTimeout(() => { win.print(); win.close(); }, 400);
         }
     }">
+        {{-- Actions --}}
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 mb-6">
+            <div class="flex items-center gap-3 flex-1 max-w-md">
+            </div>
+            <div class="flex items-center gap-2">
+                <button class="btn-secondary btn-sm flex-1 sm:flex-none justify-center" @click="exportExcel()" title="Export Excel">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                    <span>Excel</span>
+                </button>
+                <button class="btn-secondary btn-sm flex-1 sm:flex-none justify-center" @click="printPDF()" title="Cetak PDF">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+                    <span>Print</span>
+                </button>
+                <button class="btn-primary btn-sm flex-1 sm:flex-none justify-center">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                    Tambah
+                </button>
+            </div>
+        </div>
+
         {{-- Filters --}}
         <div class="bg-(--surface) border border-border rounded-2xl p-4 shadow-sm mb-6">
             <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
