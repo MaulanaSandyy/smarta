@@ -5,6 +5,7 @@ import sidebar from './components/sidebar';
 import theme from './components/theme';
 import userMenu from './components/user-menu';
 import dataWarga from './components/data-warga';
+import dataSurat from './components/data-surat';
 
 window.Alpine = Alpine;
 
@@ -15,6 +16,9 @@ Alpine.data('userMenu', userMenu);
 
 window.dataWarga = function(items, perPage) {
     return dataWarga(items, perPage);
+};
+window.dataSurat = function(items, perPage) {
+    return dataSurat(items, perPage);
 };
 
 Alpine.start();
