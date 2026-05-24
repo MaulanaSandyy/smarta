@@ -185,6 +185,50 @@
                         </div>
                     </div>
                 </template>
+
+                {{-- Tambah Jadwal Baru --}}
+                <div x-show="!showTambahForm" class="pt-2">
+                    <button @click="bukaTambahJadwal()" class="btn-secondary btn-sm w-full justify-center">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                        Tambah Jadwal Baru
+                    </button>
+                </div>
+
+                {{-- Form Tambah Jadwal --}}
+                <div x-show="showTambahForm" class="rounded-xl border border-border overflow-hidden">
+                    <div class="px-3 py-2 bg-surface-secondary">
+                        <span class="text-sm font-semibold text-text-primary">Jadwal Baru</span>
+                    </div>
+                    <div class="px-3 py-3 space-y-3">
+                        <div>
+                            <label class="text-[10px] text-text-muted block mb-0.5">Nama / Hari <span class="text-rose-500">*</span></label>
+                            <input type="text" class="input text-sm w-full" x-model="tambahForm.nama" placeholder="Contoh: Senin Kliwon / Patroli Khusus">
+                        </div>
+                        <div>
+                            <label class="text-[10px] text-text-muted block mb-0.5">Petugas <span class="text-rose-500">*</span></label>
+                            <input type="text" class="input text-sm w-full" x-model="tambahForm.petugas" placeholder="Nama petugas">
+                        </div>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div>
+                                <label class="text-[10px] text-text-muted block mb-0.5">Waktu</label>
+                                <input type="text" class="input text-sm w-full" x-model="tambahForm.waktu" placeholder="22:00 - 05:00">
+                            </div>
+                            <div>
+                                <label class="text-[10px] text-text-muted block mb-0.5">Pos</label>
+                                <select class="input text-sm w-full" x-model="tambahForm.pos">
+                                    <template x-for="p in posList" :key="p">
+                                        <option :value="p" x-text="p"></option>
+                                    </template>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2 justify-end">
+                            <button class="btn-ghost btn-xs text-xs" @click="batalTambah()">Batal</button>
+                            <button class="btn-primary btn-xs text-xs" @click="tambahJadwal()">Simpan</button>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="flex justify-end pt-2 border-t border-border">
                     <button class="btn-secondary" @click="window['modal-atur-jadwal'].close()">Tutup</button>
                 </div>

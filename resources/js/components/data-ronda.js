@@ -6,6 +6,8 @@ export default function dataRonda(jadwal, posList) {
         editForm: { hari: '', petugas: '', waktu: '', pos: '' },
         editingDay: null,
         laporanForm: { tgl: '', judul: '', deskripsi: '', status: 'Aman', pelapor: '' },
+        tambahForm: { nama: '', petugas: '', waktu: '22:00 - 05:00', pos: '' },
+        showTambahForm: false,
         get totalInsiden() {
             var count = 0;
             for (var i = 0; i < this.laporan.length; i++) {
@@ -65,6 +67,24 @@ export default function dataRonda(jadwal, posList) {
             if (window['modal-buat-laporan']) {
                 window['modal-buat-laporan'].close();
             }
+        },
+        bukaTambahJadwal: function() {
+            this.showTambahForm = true;
+            this.tambahForm = { nama: '', petugas: '', waktu: '22:00 - 05:00', pos: this.posList[0] || 'Pos 1' };
+        },
+        batalTambah: function() {
+            this.showTambahForm = false;
+            this.tambahForm = { nama: '', petugas: '', waktu: '22:00 - 05:00', pos: '' };
+        },
+        tambahJadwal: function() {
+            if (!this.tambahForm.nama || !this.tambahForm.petugas) return;
+            this.jadwal.push({
+                hari: this.tambahForm.nama,
+                petugas: this.tambahForm.petugas,
+                waktu: this.tambahForm.waktu,
+                pos: this.tambahForm.pos
+            });
+            this.batalTambah();
         },
         statusClass: function(s) {
             return s === 'Aman' ? 'badge-success' : 'badge-danger';
