@@ -20,18 +20,26 @@
             ['name' => 'Mega Wati', 'nik' => '3273010101900014', 'kk' => '3273010101900012', 'alamat' => 'Jl. Merdeka No. 12, RT 01', 'status' => 'Tetap', 'phone' => '081234567903'],
             ['name' => 'Rudi Hartono', 'nik' => '3273010101900015', 'kk' => '3273010101900013', 'alamat' => 'Jl. Merdeka No. 13, RT 01', 'status' => 'Kos', 'phone' => '081234567904'],
         ];
-        $total = count($warga);
         $perPage = 6;
     @endphp
 
     <div x-data="{
         page: 1,
         perPage: {{ $perPage }},
+        search: '',
+        statusFilter: '',
         items: {{ Js::from($warga) }},
-        get totalPages() { return Math.ceil(this.items.length / this.perPage) },
-        get pagedItems() { return this.items.slice((this.page - 1) * this.perPage, this.page * this.perPage) },
-        get start() { return (this.page - 1) * this.perPage + 1 },
-        get end() { return Math.min(this.page * this.perPage, this.items.length) },
+        get filteredItems() {
+            return this.items.filter(item => {
+                const matchSearch = !this.search || item.name.toLowerCase().includes(this.search.toLowerCase()) || item.nik.includes(this.search) || item.phone.includes(this.search);
+                const matchStatus = !this.statusFilter || item.status === this.statusFilter;
+                return matchSearch && matchStatus;
+            });
+        },
+        get totalPages() { return Math.ceil(this.filteredItems.length / this.perPage) || 1 },
+        get pagedItems() { return this.filteredItems.slice((this.page - 1) * this.perPage, this.page * this.perPage) },
+        get start() { return this.filteredItems.length ? (this.page - 1) * this.perPage + 1 : 0 },
+        get end() { return Math.min(this.page * this.perPage, this.filteredItems.length) },
         get pages() {
             const p = [];
             for (let i = 1; i <= this.totalPages; i++) p.push(i);
@@ -41,32 +49,66 @@
             const map = { 'Tetap': 'badge-primary', 'Kontrakan': 'badge-warning', 'Kos': 'badge-slate' };
             return map[s] || 'badge-slate';
         },
+        setFilter(status) {
+            this.statusFilter = status;
+            this.page = 1;
+        },
         goTo(p) { if (p >= 1 && p <= this.totalPages) { this.page = p; this.$el.scrollIntoView({ behavior: 'smooth', block: 'start' }) } },
         prev() { this.goTo(this.page - 1) },
-        next() { this.goTo(this.page + 1) }
+        next() { this.goTo(this.page + 1) },
+        resetFilters() {
+            this.search = '';
+            this.statusFilter = '';
+            this.page = 1;
+        }
     }">
-        {{-- Actions --}}
-        <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 mb-6">
-            <div class="flex items-center gap-3 flex-1 max-w-md">
-                <div class="relative flex-1">
+        {{-- Filters --}}
+        <div class="bg-(--surface) border border-border rounded-2xl p-4 shadow-sm mb-6">
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+                <div class="relative flex-1 max-w-md">
                     <svg class="absolute left-3 inset-y-0 my-auto w-4 h-4 text-text-muted pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"/></svg>
-                    <input type="text" placeholder="Cari warga..." class="input pl-10">
+                    <input type="text" placeholder="Cari nama, NIK, atau telepon..." class="input pl-10" x-model="search" @input="page = 1">
                 </div>
-            </div>
-            <div class="flex items-center gap-2">
-                <button class="btn-secondary btn-sm flex-1 sm:flex-none justify-center">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-                    Export
-                </button>
-                <button class="btn-primary btn-sm flex-1 sm:flex-none justify-center">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-                    Tambah Warga
-                </button>
+                <div class="flex items-center gap-1.5 flex-wrap" x-data="{ showMore: false }">
+                    <button @click="setFilter('')"
+                            class="px-3 py-1.5 text-xs font-medium rounded-lg transition-colors"
+                            :class="statusFilter === '' ? 'bg-primary-600 text-white shadow-sm' : 'bg-surface-secondary text-text-secondary hover:bg-surface-tertiary'">
+                        Semua
+                    </button>
+                    <button @click="setFilter('Tetap')"
+                            class="px-3 py-1.5 text-xs font-medium rounded-lg transition-colors"
+                            :class="statusFilter === 'Tetap' ? 'bg-primary-600 text-white shadow-sm' : 'bg-surface-secondary text-text-secondary hover:bg-surface-tertiary'">
+                        Tetap
+                    </button>
+                    <button @click="setFilter('Kontrakan')"
+                            class="px-3 py-1.5 text-xs font-medium rounded-lg transition-colors"
+                            :class="statusFilter === 'Kontrakan' ? 'bg-primary-600 text-white shadow-sm' : 'bg-surface-secondary text-text-secondary hover:bg-surface-tertiary'">
+                        Kontrakan
+                    </button>
+                    <button @click="setFilter('Kos')"
+                            class="px-3 py-1.5 text-xs font-medium rounded-lg transition-colors"
+                            :class="statusFilter === 'Kos' ? 'bg-primary-600 text-white shadow-sm' : 'bg-surface-secondary text-text-secondary hover:bg-surface-tertiary'">
+                        Kos
+                    </button>
+                    <button @click="resetFilters()"
+                            class="px-3 py-1.5 text-xs font-medium rounded-lg transition-colors text-text-muted hover:text-rose-600 hover:bg-rose-50"
+                            x-show="search || statusFilter">
+                        <svg class="w-3.5 h-3.5 inline-block mr-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                        Hapus
+                    </button>
+                </div>
             </div>
         </div>
 
         {{-- Mobile Card View --}}
         <div class="block sm:hidden space-y-3 mb-6">
+            <template x-if="filteredItems.length === 0">
+                <div class="bg-(--surface) border border-border rounded-2xl p-8 text-center">
+                    <svg class="w-12 h-12 mx-auto text-text-muted mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                    <p class="text-sm text-text-muted">Tidak ada warga yang cocok dengan filter</p>
+                    <button @click="resetFilters()" class="btn-primary btn-sm mt-3">Reset Filter</button>
+                </div>
+            </template>
             <template x-for="(item, index) in pagedItems" :key="index">
                 <div class="bg-(--surface) border border-border rounded-2xl p-4 shadow-sm">
                     <div class="flex items-start gap-3 mb-3">
@@ -106,10 +148,10 @@
             </template>
 
             {{-- Mobile Pagination --}}
-            <div class="bg-(--surface) border border-border rounded-2xl p-4 shadow-sm">
+            <div class="bg-(--surface) border border-border rounded-2xl p-4 shadow-sm" x-show="filteredItems.length > 0">
                 <div class="flex flex-col items-center gap-3">
                     <p class="text-sm text-text-muted">
-                        Menampilkan <span x-text="start"></span>-<span x-text="end"></span> dari <span x-text="items.length"></span> warga
+                        Menampilkan <span x-text="start"></span>-<span x-text="end"></span> dari <span x-text="filteredItems.length"></span> warga
                     </p>
                     <div class="flex items-center gap-1">
                         <button class="btn-ghost btn-sm p-1.5" :disabled="page === 1" @click="prev()">
@@ -146,6 +188,15 @@
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-border">
+                        <template x-if="filteredItems.length === 0">
+                            <tr>
+                                <td colspan="7" class="table-cell text-center py-12">
+                                    <svg class="w-12 h-12 mx-auto text-text-muted mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                                    <p class="text-sm text-text-muted">Tidak ada warga yang cocok dengan filter</p>
+                                    <button @click="resetFilters()" class="btn-primary btn-sm mt-2">Reset Filter</button>
+                                </td>
+                            </tr>
+                        </template>
                         <template x-for="(item, index) in pagedItems" :key="index">
                             <tr class="hover:bg-surface-secondary transition-colors">
                                 <td class="table-cell">
@@ -176,9 +227,9 @@
                     </tbody>
                 </table>
             </div>
-            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 px-4 sm:px-6 py-3 border-t border-border">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 px-4 sm:px-6 py-3 border-t border-border" x-show="filteredItems.length > 0">
                 <p class="text-sm text-text-muted">
-                    Menampilkan <span x-text="start"></span>-<span x-text="end"></span> dari <span x-text="items.length"></span> warga
+                    Menampilkan <span x-text="start"></span>-<span x-text="end"></span> dari <span x-text="filteredItems.length"></span> warga
                 </p>
                 <div class="flex items-center gap-1">
                     <button class="btn-ghost btn-sm p-1.5" :disabled="page === 1" @click="prev()">
