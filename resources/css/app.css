@@ -132,25 +132,27 @@
     padding: 1.5rem;
 }
 
-.input {
-    width: 100%;
-    padding-inline: 0.875rem;
-    padding-block: 0.625rem;
-    background-color: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 0.75rem;
-    color: var(--text-primary);
-    outline: none;
-    transition: all 0.2s;
-}
+@layer components {
+    .input {
+        width: 100%;
+        padding-inline: 0.875rem;
+        padding-block: 0.625rem;
+        background-color: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 0.75rem;
+        color: var(--text-primary);
+        outline: none;
+        transition: all 0.2s;
+    }
 
-.input::placeholder {
-    color: var(--text-muted);
-}
+    .input::placeholder {
+        color: var(--text-muted);
+    }
 
-.input:focus {
-    border-color: var(--color-primary-500);
-    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary-500) 20%, transparent);
+    .input:focus {
+        border-color: var(--color-primary-500);
+        box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary-500) 20%, transparent);
+    }
 }
 
 .sidebar-link {

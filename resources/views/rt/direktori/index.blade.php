@@ -5,7 +5,7 @@
     <div class="flex items-center justify-between mb-6">
         <div class="flex items-center gap-3 flex-1 max-w-md">
             <div class="relative flex-1">
-                <svg class="absolute left-3 inset-y-0 my-auto w-4 h-4 text-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"/></svg>
+                <svg class="absolute left-3 inset-y-0 my-auto w-4 h-4 text-text-muted pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"/></svg>
                 <input type="text" placeholder="Cari warga, keahlian, atau UMKM..." class="input pl-10">
             </div>
         </div>
