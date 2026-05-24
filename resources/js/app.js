@@ -10,6 +10,7 @@ import dataIuran from './components/data-iuran';
 import dataLaporan from './components/data-laporan';
 import dataAgenda from './components/data-agenda';
 import dataKas from './components/data-kas';
+import dataRonda from './components/data-ronda';
 
 window.Alpine = Alpine;
 
@@ -35,6 +36,9 @@ window.dataAgenda = function(items, bulan, tahun) {
 };
 window.dataKas = function(items, perPage) {
     return dataKas(items, perPage);
+};
+window.dataRonda = function(jadwal, posList) {
+    return dataRonda(jadwal, posList);
 };
 
 Alpine.start();
