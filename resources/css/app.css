@@ -490,3 +490,7 @@
     padding-block: 0.875rem;
     font-size: 1rem;
 }
+
+[x-cloak] {
+    display: none !important;
+}

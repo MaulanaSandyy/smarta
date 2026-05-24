@@ -52,7 +52,7 @@
                 <x-slot:header>
                     <div class="flex items-center justify-between">
                         <h3 class="text-base font-semibold text-text-primary">Aktivitas Terbaru</h3>
-                        <a href="#" class="text-sm text-primary-600 hover:text-primary-700 font-medium">Lihat Semua</a>
+                        <button @click="window['modal-aktivitas'].open()" class="text-sm text-primary-600 hover:text-primary-700 font-medium transition-colors">Lihat Semua</button>
                     </div>
                 </x-slot:header>
                 <div class="space-y-4">
@@ -90,7 +90,7 @@
                 <x-slot:header>
                     <div class="flex items-center justify-between">
                         <h3 class="text-base font-semibold text-text-primary">Pengumuman</h3>
-                        <a href="#" class="text-sm text-primary-600 hover:text-primary-700 font-medium">Lihat</a>
+                        <button @click="window['modal-pengumuman'].open()" class="text-sm text-primary-600 hover:text-primary-700 font-medium transition-colors">Lihat</button>
                     </div>
                 </x-slot:header>
                 <div class="space-y-3">
@@ -102,7 +102,8 @@
                         ];
                     @endphp
                     @foreach ($announcements as $announcement)
-                        <div class="p-3 rounded-xl bg-surface-secondary hover:bg-surface-tertiary transition-colors cursor-pointer">
+                        <div class="p-3 rounded-xl bg-surface-secondary hover:bg-surface-tertiary transition-colors cursor-pointer"
+                             @click="window['modal-pengumuman'].open()">
                             <div class="flex items-start justify-between gap-2">
                                 <div>
                                     <p class="text-sm font-medium text-text-primary">{{ $announcement['title'] }}</p>
@@ -145,4 +146,60 @@
             </x-ui.card>
         </div>
     </div>
+
+    {{-- Modal Aktivitas --}}
+    <x-ui.modal name="aktivitas" header="Semua Aktivitas">
+        <div class="space-y-4">
+            @php
+                $allActivities = array_merge($activities, [
+                    ['user' => 'Doni Prasetyo', 'action' => 'memperbarui data keluarga', 'time' => '6 jam lalu', 'type' => 'warga'],
+                    ['user' => 'Desi Ratnasari', 'action' => 'mengajukan surat pindah', 'time' => '8 jam lalu', 'type' => 'surat'],
+                    ['user' => 'Bapak RT', 'action' => 'mengesahkan pengajuan surat', 'time' => '12 jam lalu', 'type' => 'surat'],
+                    ['user' => 'Sekretaris', 'action' => 'membuat laporan bulanan', 'time' => '1 hari lalu', 'type' => 'laporan'],
+                    ['user' => 'Bendahara', 'action' => 'mencatat pemasukan iuran', 'time' => '1 hari lalu', 'type' => 'payment'],
+                    ['user' => 'Koordinator Hansip', 'action' => 'mengumumkan jadwal ronda', 'time' => '2 hari lalu', 'type' => 'ronda'],
+                    ['user' => 'Ahmad Fauzi', 'action' => 'melaporkan perubahan KK', 'time' => '2 hari lalu', 'type' => 'laporan'],
+                ]);
+            @endphp
+            @foreach ($allActivities as $activity)
+                <div class="flex items-start gap-3 pb-4 {{ !$loop->last ? 'border-b border-border' : '' }}">
+                    <div class="w-8 h-8 rounded-full bg-primary-100 text-primary-600 flex items-center justify-center text-xs font-semibold flex-shrink-0">
+                        {{ substr($activity['user'], 0, 1) }}
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <p class="text-sm text-text-primary">
+                            <span class="font-medium">{{ $activity['user'] }}</span>
+                            <span class="text-text-secondary"> {{ $activity['action'] }}</span>
+                        </p>
+                        <p class="text-xs text-text-muted mt-0.5">{{ $activity['time'] }}</p>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+    </x-ui.modal>
+
+    {{-- Modal Pengumuman --}}
+    <x-ui.modal name="pengumuman" header="Semua Pengumuman">
+        <div class="space-y-3">
+            @php
+                $allAnnouncements = array_merge($announcements, [
+                    ['title' => 'Perubahan Jadwal Posyandu', 'date' => '15 Mei 2026', 'badge' => 'Info'],
+                    ['title' => 'Pendaftaran Lomba 17 Agustus', 'date' => '10 Mei 2026', 'badge' => 'Info'],
+                    ['title' => 'Peringatan Dini Cuaca Ekstrem', 'date' => '8 Mei 2026', 'badge' => 'Penting'],
+                    ['title' => 'Rapat Warga Bulanan', 'date' => '5 Mei 2026', 'badge' => 'Info'],
+                ]);
+            @endphp
+            @foreach ($allAnnouncements as $a)
+                <div class="p-4 rounded-xl bg-surface-secondary hover:bg-surface-tertiary transition-colors">
+                    <div class="flex items-start justify-between gap-2">
+                        <div>
+                            <p class="text-sm font-medium text-text-primary">{{ $a['title'] }}</p>
+                            <p class="text-xs text-text-muted mt-0.5">{{ $a['date'] }}</p>
+                        </div>
+                        <span class="badge-primary text-[10px] px-2 py-0.5 flex-shrink-0">{{ $a['badge'] }}</span>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+    </x-ui.modal>
 </x-layouts.rt>
