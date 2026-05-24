@@ -57,6 +57,39 @@ export default function dataKalender() {
             var sorted = self.events.slice().sort(function(a, b) { return a.tanggal.localeCompare(b.tanggal); });
             return sorted.filter(function(e) { return e.tanggal >= self.today; });
         },
+        selectedDay: null,
+        get selectedDayEvents() {
+            if (!this.selectedDay) return [];
+            var parts = this.selectedDay.split('-');
+            var day = parseInt(parts[2]);
+            return this.eventsForDay(day);
+        },
+        getDayName: function(dateStr) {
+            if (!dateStr) return '';
+            var parts = dateStr.split('-');
+            var d = new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
+            return this.namaHari[d.getDay()];
+        },
+        bukaDetailHari: function(day) {
+            var dateStr = this.tahun + '-' + String(this.bulan).padStart(2, '0') + '-' + String(day).padStart(2, '0');
+            this.selectedDay = dateStr;
+            if (window['modal-detail-hari']) {
+                window['modal-detail-hari'].open();
+            }
+        },
+        get eventCounts() {
+            var counts = {};
+            for (var i = 0; i < this.events.length; i++) {
+                var e = this.events[i];
+                var parts = e.tanggal.split('-');
+                var day = parseInt(parts[2]);
+                var key = this.tahun + '-' + String(this.bulan).padStart(2, '0') + '-' + String(day).padStart(2, '0');
+                if (e.tanggal === key) {
+                    counts[day] = (counts[day] || 0) + 1;
+                }
+            }
+            return counts;
+        },
         formatTanggal: function(dateStr) {
             if (!dateStr) return '-';
             var parts = dateStr.split('-');
