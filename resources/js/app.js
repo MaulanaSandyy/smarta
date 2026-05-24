@@ -7,6 +7,7 @@ import userMenu from './components/user-menu';
 import dataWarga from './components/data-warga';
 import dataSurat from './components/data-surat';
 import dataIuran from './components/data-iuran';
+import dataLaporan from './components/data-laporan';
 
 window.Alpine = Alpine;
 
@@ -23,6 +24,9 @@ window.dataSurat = function(items, perPage) {
 };
 window.dataIuran = function(items, perPage) {
     return dataIuran(items, perPage);
+};
+window.dataLaporan = function(items, perPage) {
+    return dataLaporan(items, perPage);
 };
 
 Alpine.start();
