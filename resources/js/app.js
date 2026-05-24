@@ -13,6 +13,7 @@ import dataKas from './components/data-kas';
 import dataRonda from './components/data-ronda';
 import dataDirektori from './components/data-direktori';
 import dataKalender from './components/data-kalender';
+import dataPortalKos from './components/data-portal-kos';
 
 window.Alpine = Alpine;
 
@@ -47,6 +48,9 @@ window.dataDirektori = function(items, perPage) {
 };
 window.dataKalenderLingkungan = function() {
     return dataKalender();
+};
+window.dataPortalKos = function() {
+    return dataPortalKos();
 };
 
 Alpine.start();
