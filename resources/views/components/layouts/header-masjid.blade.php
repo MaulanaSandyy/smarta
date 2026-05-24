@@ -1,19 +1,19 @@
 <header class="sticky top-0 z-30 header-frost backdrop-blur-xl border-b border-border">
     <div class="flex items-center justify-between h-16 px-4 lg:px-6">
-        <div class="flex items-center gap-3">
-            <button @click="toggle()" class="btn-ghost p-2 -ml-2">
+        <div class="flex items-center gap-3 min-w-0 shrink">
+            <button @click="toggle()" class="btn-ghost p-2 -ml-2 shrink-0">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
                 </svg>
             </button>
-            <div>
-                <h1 class="text-sm font-semibold text-text-primary">{{ $title ?? 'Dashboard Masjid' }}</h1>
-                <p class="text-xs text-text-muted">{{ $subtitle ?? '' }}</p>
+            <div class="min-w-0">
+                <h1 class="text-sm font-semibold text-text-primary truncate max-w-[120px] sm:max-w-none">{{ $title ?? 'Dashboard Masjid' }}</h1>
+                <p class="text-xs text-text-muted truncate max-w-[120px] sm:max-w-none">{{ $subtitle ?? '' }}</p>
             </div>
         </div>
 
-        <div class="flex items-center gap-2">
-            <button x-data="theme()" @click="toggle()" class="btn-ghost p-2 relative" title="Toggle theme">
+        <div class="flex items-center gap-1 sm:gap-2">
+            <button x-data="theme()" @click="toggle()" class="btn-ghost p-2 relative shrink-0" title="Toggle theme">
                 <svg x-show="!isDark" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
                 </svg>
@@ -22,7 +22,7 @@
                 </svg>
             </button>
 
-            <button class="btn-ghost p-2 relative">
+            <button class="btn-ghost p-2 relative shrink-0">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
                 </svg>
@@ -34,10 +34,10 @@
                 Ganti Sistem
             </a>
 
-            <div class="relative" x-data="userMenu()" @click.outside="open = false">
-                <button @click="open = !open" class="flex items-center gap-2 pl-2 pr-3 py-1.5 rounded-xl hover:bg-surface-secondary transition-colors">
-                    <div class="w-7 h-7 rounded-lg bg-emerald-600 flex items-center justify-center text-white text-xs font-semibold" x-text="initial">A</div>
-                    <svg class="w-4 h-4 text-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="relative shrink-0" x-data="userMenu()" @click.outside="open = false">
+                <button @click="open = !open" class="flex items-center gap-1 sm:gap-2 pl-1.5 sm:pl-2 pr-1.5 sm:pr-3 py-1.5 rounded-xl hover:bg-surface-secondary transition-colors">
+                    <div class="w-7 h-7 rounded-lg bg-emerald-600 flex items-center justify-center text-white text-xs font-semibold shrink-0" x-text="initial">A</div>
+                    <svg class="w-4 h-4 text-text-muted hidden sm:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                     </svg>
                 </button>
