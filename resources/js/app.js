@@ -20,6 +20,7 @@ import dataDonasi from './components/data-donasi';
 import dataKajian from './components/data-kajian';
 import dataInventaris from './components/data-inventaris';
 import dataKalenderMasjid from './components/data-kalender-masjid';
+import dataGaleri from './components/data-galeri';
 
 window.Alpine = Alpine;
 
@@ -75,6 +76,9 @@ window.dataInventaris = function() {
 };
 window.dataKalenderMasjid = function() {
     return dataKalenderMasjid();
+};
+window.dataGaleri = function() {
+    return dataGaleri();
 };
 
 Alpine.start();
