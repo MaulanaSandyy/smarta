@@ -2,20 +2,7 @@
     <x-slot:title>Jadwal Ronda</x-slot:title>
     <x-slot:subtitle>Sistem jadwal ronda malam digital RT 01</x-slot:subtitle>
 
-    @php
-        $jadwal = [
-            ['hari' => 'Senin', 'waktu' => '22:00 - 05:00', 'petugas' => 'Ahmad Fauzi, Budi Santoso, Doni Prasetyo', 'pos' => 'Pos 1'],
-            ['hari' => 'Selasa', 'waktu' => '22:00 - 05:00', 'petugas' => 'Siti Rahma, Rina Wijaya, Desi Ratnasari', 'pos' => 'Pos 2'],
-            ['hari' => 'Rabu', 'waktu' => '22:00 - 05:00', 'petugas' => 'Budi Santoso, Ahmad Fauzi, Doni Prasetyo', 'pos' => 'Pos 1'],
-            ['hari' => 'Kamis', 'waktu' => '22:00 - 05:00', 'petugas' => 'Rina Wijaya, Siti Rahma, Desi Ratnasari', 'pos' => 'Pos 2'],
-            ['hari' => 'Jumat', 'waktu' => '22:00 - 05:00', 'petugas' => 'Doni Prasetyo, Budi Santoso, Ahmad Fauzi', 'pos' => 'Pos 1'],
-            ['hari' => 'Sabtu', 'waktu' => '22:00 - 05:00', 'petugas' => 'Desi Ratnasari, Rina Wijaya, Siti Rahma', 'pos' => 'Pos 2'],
-            ['hari' => 'Minggu', 'waktu' => '22:00 - 05:00', 'petugas' => 'Semua warga giliran', 'pos' => 'Semua Pos'],
-        ];
-        $posList = ['Pos 1', 'Pos 2', 'Semua Pos'];
-    @endphp
-
-    <div x-data="dataRonda({{ Js::from($jadwal) }}, {{ Js::from($posList) }})">
+    <div x-data="dataRonda({{ Js::from($jadwal->items()) }}, {{ Js::from($posList) }})">
         {{-- Stats --}}
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
             <div class="card">

@@ -2,23 +2,7 @@
     <x-slot:title>Keuangan Masjid</x-slot:title>
     <x-slot:subtitle>Transparansi keuangan dan kas masjid</x-slot:subtitle>
 
-    @php
-        $transaksi = [
-            ['tgl' => '25/05/2026', 'ket' => 'Infaq Jumat', 'kategori' => 'Infaq', 'masuk' => 1250000, 'keluar' => 0, 'bukti' => true],
-            ['tgl' => '24/05/2026', 'ket' => 'Pembelian sajadah baru', 'kategori' => 'Perlengkapan', 'masuk' => 0, 'keluar' => 850000, 'bukti' => true],
-            ['tgl' => '23/05/2026', 'ket' => 'Donasi pembangunan', 'kategori' => 'Donasi', 'masuk' => 2000000, 'keluar' => 0, 'bukti' => true],
-            ['tgl' => '22/05/2026', 'ket' => 'Listrik dan air', 'kategori' => 'Operasional', 'masuk' => 0, 'keluar' => 600000, 'bukti' => true],
-            ['tgl' => '21/05/2026', 'ket' => 'Zakat fitrah', 'kategori' => 'Zakat', 'masuk' => 1500000, 'keluar' => 0, 'bukti' => true],
-            ['tgl' => '20/05/2026', 'ket' => 'Konsumsi kajian', 'kategori' => 'Konsumsi', 'masuk' => 0, 'keluar' => 350000, 'bukti' => true],
-            ['tgl' => '19/05/2026', 'ket' => 'Kotak amal Jumat', 'kategori' => 'Infaq', 'masuk' => 980000, 'keluar' => 0, 'bukti' => false],
-            ['tgl' => '18/05/2026', 'ket' => 'Perbaikan kubah', 'kategori' => 'Perbaikan', 'masuk' => 0, 'keluar' => 2500000, 'bukti' => true],
-            ['tgl' => '17/05/2026', 'ket' => 'Infaq Jumat', 'kategori' => 'Infaq', 'masuk' => 1100000, 'keluar' => 0, 'bukti' => true],
-            ['tgl' => '16/05/2026', 'ket' => 'Pembersihan masjid', 'kategori' => 'Operasional', 'masuk' => 0, 'keluar' => 200000, 'bukti' => false],
-        ];
-        $perPage = 5;
-    @endphp
-
-    <div x-data="dataKeuangan({{ Js::from($transaksi) }}, {{ $perPage }})">
+    <div x-data="dataKeuangan({{ Js::from($transaksi->items()) }}, {{ $transaksi->perPage() }})">
         {{-- Stats --}}
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
             <div class="bg-(--surface) border border-border rounded-2xl p-4 sm:p-5 shadow-sm">

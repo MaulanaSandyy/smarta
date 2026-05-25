@@ -2,28 +2,7 @@
     <x-slot:title>Sistem Kas RT</x-slot:title>
     <x-slot:subtitle>Transparansi keuangan RT 01</x-slot:subtitle>
 
-    @php
-        $transaksi = [
-            ['tgl' => '25/05/2026', 'ket' => 'Iuran warga 10 KK', 'kategori' => 'Iuran', 'masuk' => 500000, 'keluar' => 0, 'bukti' => true],
-            ['tgl' => '24/05/2026', 'ket' => 'Pembelian alat kebersihan', 'kategori' => 'Belanja', 'masuk' => 0, 'keluar' => 250000, 'bukti' => true],
-            ['tgl' => '23/05/2026', 'ket' => 'Iuran warga 8 KK', 'kategori' => 'Iuran', 'masuk' => 400000, 'keluar' => 0, 'bukti' => true],
-            ['tgl' => '22/05/2026', 'ket' => 'Perbaikan lampu jalan', 'kategori' => 'Perbaikan', 'masuk' => 0, 'keluar' => 750000, 'bukti' => true],
-            ['tgl' => '21/05/2026', 'ket' => 'Donasi untuk acara 17-an', 'kategori' => 'Donasi', 'masuk' => 200000, 'keluar' => 0, 'bukti' => false],
-            ['tgl' => '20/05/2026', 'ket' => 'Iuran warga 12 KK', 'kategori' => 'Iuran', 'masuk' => 600000, 'keluar' => 0, 'bukti' => true],
-            ['tgl' => '19/05/2026', 'ket' => 'Konsumsi rapat RT', 'kategori' => 'Konsumsi', 'masuk' => 0, 'keluar' => 150000, 'bukti' => true],
-            ['tgl' => '18/05/2026', 'ket' => 'Iuran warga 5 KK', 'kategori' => 'Iuran', 'masuk' => 250000, 'keluar' => 0, 'bukti' => true],
-            ['tgl' => '17/05/2026', 'ket' => 'Pengecatan pos kamling', 'kategori' => 'Perbaikan', 'masuk' => 0, 'keluar' => 350000, 'bukti' => true],
-            ['tgl' => '16/05/2026', 'ket' => 'Donasi sukarela warga', 'kategori' => 'Donasi', 'masuk' => 150000, 'keluar' => 0, 'bukti' => false],
-            ['tgl' => '15/05/2026', 'ket' => 'Listrik balai RT', 'kategori' => 'Operasional', 'masuk' => 0, 'keluar' => 200000, 'bukti' => true],
-            ['tgl' => '14/05/2026', 'ket' => 'Iuran warga 7 KK', 'kategori' => 'Iuran', 'masuk' => 350000, 'keluar' => 0, 'bukti' => true],
-            ['tgl' => '13/05/2026', 'ket' => 'Pembelian ATK', 'kategori' => 'Belanja', 'masuk' => 0, 'keluar' => 100000, 'bukti' => true],
-            ['tgl' => '12/05/2026', 'ket' => 'Sumbangan warga sakit', 'kategori' => 'Donasi', 'masuk' => 0, 'keluar' => 300000, 'bukti' => true],
-            ['tgl' => '11/05/2026', 'ket' => 'Iuran warga 6 KK', 'kategori' => 'Iuran', 'masuk' => 300000, 'keluar' => 0, 'bukti' => true],
-        ];
-        $perPage = 5;
-    @endphp
-
-    <div x-data="dataKas({{ Js::from($transaksi) }}, {{ $perPage }})">
+    <div x-data="dataKas({{ Js::from($transaksi->items()) }}, {{ $transaksi->perPage() }})">
         {{-- Saldo Summary --}}
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
             <div class="card">

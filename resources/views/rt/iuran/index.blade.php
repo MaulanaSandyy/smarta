@@ -2,29 +2,7 @@
     <x-slot:title>Pembayaran Iuran</x-slot:title>
     <x-slot:subtitle>Kelola iuran bulanan warga RT 01</x-slot:subtitle>
 
-    @php
-        $iuran = [
-            ['keluarga' => 'Budi Santoso', 'jumlah' => 'Rp 50.000', 'tgl' => '25/05/2026', 'metode' => 'Tunai', 'status' => 'Lunas', 'bulan' => 'Mei', 'tahun' => '2026', 'ket' => 'Pembayaran iuran bulan Mei 2026. Dibayar tunai ke Bendahara RT.'],
-            ['keluarga' => 'Siti Rahma', 'jumlah' => 'Rp 50.000', 'tgl' => '24/05/2026', 'metode' => 'Transfer', 'status' => 'Lunas', 'bulan' => 'Mei', 'tahun' => '2026', 'ket' => 'Transfer BCA a.n. Siti Rahma. Bukti transfer sudah dikonfirmasi.'],
-            ['keluarga' => 'Ahmad Fauzi', 'jumlah' => 'Rp 50.000', 'tgl' => '-', 'metode' => '-', 'status' => 'Belum', 'bulan' => 'Mei', 'tahun' => '2026', 'ket' => 'Belum melakukan pembayaran iuran bulan Mei 2026.'],
-            ['keluarga' => 'Rina Wijaya', 'jumlah' => 'Rp 50.000', 'tgl' => '23/05/2026', 'metode' => 'Tunai', 'status' => 'Lunas', 'bulan' => 'Mei', 'tahun' => '2026', 'ket' => 'Pembayaran iuran bulan Mei 2026. Dibayar langsung ke Bendahara.'],
-            ['keluarga' => 'Doni Prasetyo', 'jumlah' => 'Rp 25.000', 'tgl' => '-', 'metode' => '-', 'status' => 'Belum', 'bulan' => 'Mei', 'tahun' => '2026', 'ket' => 'Pembayaran belum dilakukan. Masih ada tunggakan Rp 25.000.'],
-            ['keluarga' => 'Desi Ratnasari', 'jumlah' => 'Rp 50.000', 'tgl' => '22/05/2026', 'metode' => 'Transfer', 'status' => 'Lunas', 'bulan' => 'Mei', 'tahun' => '2026', 'ket' => 'Transfer Mandiri a.n. Desi Ratnasari. Terkonfirmasi.'],
-            ['keluarga' => 'Hendra Gunawan', 'jumlah' => 'Rp 50.000', 'tgl' => '21/05/2026', 'metode' => 'Tunai', 'status' => 'Lunas', 'bulan' => 'Mei', 'tahun' => '2026', 'ket' => 'Dibayar tunai saat rapat warga.'],
-            ['keluarga' => 'Fitriani', 'jumlah' => 'Rp 50.000', 'tgl' => '-', 'metode' => '-', 'status' => 'Belum', 'bulan' => 'Mei', 'tahun' => '2026', 'ket' => 'Belum membayar. Sedang di luar kota.'],
-            ['keluarga' => 'Agus Supriyadi', 'jumlah' => 'Rp 50.000', 'tgl' => '20/04/2026', 'metode' => 'Transfer', 'status' => 'Lunas', 'bulan' => 'April', 'tahun' => '2026', 'ket' => 'Pembayaran iuran bulan April 2026. Transfer BSI.'],
-            ['keluarga' => 'Dewi Sartika', 'jumlah' => 'Rp 50.000', 'tgl' => '19/04/2026', 'metode' => 'Tunai', 'status' => 'Lunas', 'bulan' => 'April', 'tahun' => '2026', 'ket' => 'Dibayar tunai melalui Ketua RT.'],
-            ['keluarga' => 'Eko Prasetyo', 'jumlah' => 'Rp 50.000', 'tgl' => '-', 'metode' => '-', 'status' => 'Belum', 'bulan' => 'April', 'tahun' => '2026', 'ket' => 'Tunggakan 2 bulan. Akan diingatkan.'],
-            ['keluarga' => 'Ratna Dewi', 'jumlah' => 'Rp 50.000', 'tgl' => '18/04/2026', 'metode' => 'Transfer', 'status' => 'Lunas', 'bulan' => 'April', 'tahun' => '2026', 'ket' => 'Transfer BCA. Konfirmasi sudah diterima.'],
-            ['keluarga' => 'Irfan Hakim', 'jumlah' => 'Rp 50.000', 'tgl' => '25/03/2026', 'metode' => 'Tunai', 'status' => 'Lunas', 'bulan' => 'Maret', 'tahun' => '2026', 'ket' => 'Pembayaran iuran bulan Maret 2026.'],
-            ['keluarga' => 'Mega Wati', 'jumlah' => 'Rp 50.000', 'tgl' => '-', 'metode' => '-', 'status' => 'Belum', 'bulan' => 'Maret', 'tahun' => '2026', 'ket' => 'Belum membayar iuran bulan Maret.'],
-            ['keluarga' => 'Rudi Hartono', 'jumlah' => 'Rp 50.000', 'tgl' => '24/03/2026', 'metode' => 'Tunai', 'status' => 'Lunas', 'bulan' => 'Maret', 'tahun' => '2026', 'ket' => 'Dibayar langsung ke Bendahara RT.'],
-        ];
-        $perPage = 5;
-        $months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-    @endphp
-
-    <div x-data="dataIuran({{ Js::from($iuran) }}, {{ $perPage }})">
+    <div x-data="dataIuran({{ Js::from($iuran->items()) }}, {{ $perPage }})">
         {{-- Stats --}}
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
             <div class="stats-card">

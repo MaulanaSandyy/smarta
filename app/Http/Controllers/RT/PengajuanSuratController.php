@@ -8,59 +8,71 @@ use Illuminate\Http\Request;
 
 class PengajuanSuratController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $pengajuanSurat = PengajuanSurat::latest()->paginate(10);
+        return view('rt.surat.index', compact('pengajuanSurat'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view('rt.surat.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'user_id' => 'nullable|exists:users,id',
+            'warga_id' => 'required|exists:warga,id',
+            'jenis_surat' => 'required|string|max:255',
+            'nomor_surat' => 'nullable|string|max:255',
+            'keperluan' => 'required|string',
+            'keterangan' => 'nullable|string',
+            'status' => 'required|string|max:50',
+            'catatan' => 'nullable|string',
+            'tanggal_pengajuan' => 'required|date',
+            'tanggal_selesai' => 'nullable|date',
+        ]);
+
+        PengajuanSurat::create($validated);
+
+        return redirect()->route('rt.surat.index')->with('success', 'Pengajuan surat berhasil ditambahkan.');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(PengajuanSurat $pengajuanSurat)
     {
-        //
+        return view('rt.surat.show', compact('pengajuanSurat'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(PengajuanSurat $pengajuanSurat)
     {
-        //
+        return view('rt.surat.edit', compact('pengajuanSurat'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, PengajuanSurat $pengajuanSurat)
     {
-        //
+        $validated = $request->validate([
+            'user_id' => 'nullable|exists:users,id',
+            'warga_id' => 'required|exists:warga,id',
+            'jenis_surat' => 'required|string|max:255',
+            'nomor_surat' => 'nullable|string|max:255',
+            'keperluan' => 'required|string',
+            'keterangan' => 'nullable|string',
+            'status' => 'required|string|max:50',
+            'catatan' => 'nullable|string',
+            'tanggal_pengajuan' => 'required|date',
+            'tanggal_selesai' => 'nullable|date',
+        ]);
+
+        $pengajuanSurat->update($validated);
+
+        return redirect()->route('rt.surat.index')->with('success', 'Pengajuan surat berhasil diperbarui.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(PengajuanSurat $pengajuanSurat)
     {
-        //
+        $pengajuanSurat->delete();
+
+        return redirect()->route('rt.surat.index')->with('success', 'Pengajuan surat berhasil dihapus.');
     }
 }

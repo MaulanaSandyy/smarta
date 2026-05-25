@@ -2,28 +2,7 @@
     <x-slot:title>Data Warga</x-slot:title>
     <x-slot:subtitle>Kelola data warga RT 01</x-slot:subtitle>
 
-    @php
-        $warga = [
-            ['name' => 'Budi Santoso', 'nik' => '3273010101900001', 'kk' => '3273010101900001', 'alamat' => 'Jl. Merdeka No. 1, RT 01', 'status' => 'Tetap', 'phone' => '081234567890'],
-            ['name' => 'Siti Rahma', 'nik' => '3273010101900002', 'kk' => '3273010101900001', 'alamat' => 'Jl. Merdeka No. 1, RT 01', 'status' => 'Tetap', 'phone' => '081234567891'],
-            ['name' => 'Ahmad Fauzi', 'nik' => '3273010101900003', 'kk' => '3273010101900002', 'alamat' => 'Jl. Merdeka No. 2, RT 01', 'status' => 'Tetap', 'phone' => '081234567892'],
-            ['name' => 'Rina Wijaya', 'nik' => '3273010101900004', 'kk' => '3273010101900003', 'alamat' => 'Jl. Merdeka No. 3, RT 01', 'status' => 'Kontrakan', 'phone' => '081234567893'],
-            ['name' => 'Doni Prasetyo', 'nik' => '3273010101900005', 'kk' => '3273010101900004', 'alamat' => 'Jl. Merdeka No. 4, RT 01', 'status' => 'Kos', 'phone' => '081234567894'],
-            ['name' => 'Desi Ratnasari', 'nik' => '3273010101900006', 'kk' => '3273010101900005', 'alamat' => 'Jl. Merdeka No. 5, RT 01', 'status' => 'Tetap', 'phone' => '081234567895'],
-            ['name' => 'Hendra Gunawan', 'nik' => '3273010101900007', 'kk' => '3273010101900006', 'alamat' => 'Jl. Merdeka No. 6, RT 01', 'status' => 'Tetap', 'phone' => '081234567896'],
-            ['name' => 'Fitriani', 'nik' => '3273010101900008', 'kk' => '3273010101900006', 'alamat' => 'Jl. Merdeka No. 6, RT 01', 'status' => 'Tetap', 'phone' => '081234567897'],
-            ['name' => 'Agus Supriyadi', 'nik' => '3273010101900009', 'kk' => '3273010101900007', 'alamat' => 'Jl. Merdeka No. 7, RT 01', 'status' => 'Kontrakan', 'phone' => '081234567898'],
-            ['name' => 'Dewi Sartika', 'nik' => '3273010101900010', 'kk' => '3273010101900008', 'alamat' => 'Jl. Merdeka No. 8, RT 01', 'status' => 'Tetap', 'phone' => '081234567899'],
-            ['name' => 'Eko Prasetyo', 'nik' => '3273010101900011', 'kk' => '3273010101900009', 'alamat' => 'Jl. Merdeka No. 9, RT 01', 'status' => 'Kos', 'phone' => '081234567900'],
-            ['name' => 'Ratna Dewi', 'nik' => '3273010101900012', 'kk' => '3273010101900010', 'alamat' => 'Jl. Merdeka No. 10, RT 01', 'status' => 'Tetap', 'phone' => '081234567901'],
-            ['name' => 'Irfan Hakim', 'nik' => '3273010101900013', 'kk' => '3273010101900011', 'alamat' => 'Jl. Merdeka No. 11, RT 01', 'status' => 'Kontrakan', 'phone' => '081234567902'],
-            ['name' => 'Mega Wati', 'nik' => '3273010101900014', 'kk' => '3273010101900012', 'alamat' => 'Jl. Merdeka No. 12, RT 01', 'status' => 'Tetap', 'phone' => '081234567903'],
-            ['name' => 'Rudi Hartono', 'nik' => '3273010101900015', 'kk' => '3273010101900013', 'alamat' => 'Jl. Merdeka No. 13, RT 01', 'status' => 'Kos', 'phone' => '081234567904'],
-        ];
-        $perPage = 6;
-    @endphp
-
-    <div x-data="dataWarga({{ Js::from($warga) }}, {{ $perPage }})">
+    <div x-data="dataWarga({{ Js::from($warga->items()) }}, {{ $warga->perPage() }})">
         {{-- Actions --}}
         <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 mb-6">
             <div class="flex items-center gap-3 flex-1 max-w-md">

@@ -2,21 +2,7 @@
     <x-slot:title>Manajemen Jamaah</x-slot:title>
     <x-slot:subtitle>Data jamaah dan pengurus masjid</x-slot:subtitle>
 
-    @php
-        $jamaah = [
-            ['name' => 'H. Ahmad', 'role' => 'Ketua DKM', 'phone' => '081234567901', 'alamat' => 'Jl. Masjid No. 1', 'status' => 'Aktif'],
-            ['name' => 'Ustadz Abdurrahman', 'role' => 'Imam', 'phone' => '081234567902', 'alamat' => 'Jl. Masjid No. 2', 'status' => 'Aktif'],
-            ['name' => 'Bpk. Hasan', 'role' => 'Bendahara', 'phone' => '081234567903', 'alamat' => 'Jl. Masjid No. 3', 'status' => 'Aktif'],
-            ['name' => 'Ibu Siti Rahma', 'role' => 'Sekretaris', 'phone' => '081234567904', 'alamat' => 'Jl. Masjid No. 4', 'status' => 'Aktif'],
-            ['name' => 'Bpk. Mahmud', 'role' => 'Marbot', 'phone' => '081234567905', 'alamat' => 'Jl. Masjid No. 5', 'status' => 'Aktif'],
-            ['name' => 'Ahmad Fauzi', 'role' => 'Jamaah', 'phone' => '081234567906', 'alamat' => 'Jl. Merdeka No. 2', 'status' => 'Aktif'],
-            ['name' => 'Ustadz Hafidz', 'role' => 'Imam', 'phone' => '081234567907', 'alamat' => 'Jl. Masjid No. 6', 'status' => 'Aktif'],
-            ['name' => 'Ibu Dewi Sartika', 'role' => 'Jamaah', 'phone' => '081234567908', 'alamat' => 'Jl. Merdeka No. 3', 'status' => 'Aktif'],
-        ];
-        $perPage = 5;
-    @endphp
-
-    <div x-data="dataJamaah({{ Js::from($jamaah) }}, {{ $perPage }})">
+    <div x-data="dataJamaah({{ Js::from($jamaah->items()) }}, {{ $jamaah->perPage() }})">
         {{-- Stats --}}
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
             <x-ui.stats-card iconClass="bg-emerald-100 text-emerald-600">

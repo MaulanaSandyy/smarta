@@ -3,6 +3,12 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+*/
+
 Route::get('/', function () {
     return view('auth.login');
 })->name('login');
@@ -12,35 +18,45 @@ Route::get('/pilih-sistem', function () {
 })->name('pilih-sistem');
 
 Route::middleware('auth')->group(function () {
+    // Profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    // === SISTEM RT ===
     Route::prefix('rt')->name('rt.')->group(function () {
-        Route::get('/dashboard', fn() => view('rt.dashboard'))->name('dashboard');
-        Route::get('/data-warga', fn() => view('rt.data-warga.index'))->name('data-warga');
-        Route::get('/surat', fn() => view('rt.surat.index'))->name('surat');
-        Route::get('/informasi', fn() => view('rt.informasi.index'))->name('informasi');
-        Route::get('/iuran', fn() => view('rt.iuran.index'))->name('iuran');
-        Route::get('/laporan', fn() => view('rt.laporan.index'))->name('laporan');
-        Route::get('/agenda', fn() => view('rt.agenda.index'))->name('agenda');
-        Route::get('/kas', fn() => view('rt.kas.index'))->name('kas');
-        Route::get('/ronda', fn() => view('rt.ronda.index'))->name('ronda');
-        Route::get('/direktori', fn() => view('rt.direktori.index'))->name('direktori');
-        Route::get('/kalender', fn() => view('rt.kalender.index'))->name('kalender');
-        Route::get('/portal-kos', fn() => view('rt.portal-kos.index'))->name('portal-kos');
+        Route::get('/dashboard', [\App\Http\Controllers\RT\DashboardController::class, 'index'])->name('dashboard');
+        Route::resource('data-warga', \App\Http\Controllers\RT\WargaController::class)->parameters(['data-warga' => 'warga']);
+        Route::resource('surat', \App\Http\Controllers\RT\PengajuanSuratController::class)->parameters(['surat' => 'pengajuan_surat']);
+        Route::resource('informasi', \App\Http\Controllers\RT\InformasiController::class);
+        Route::resource('iuran', \App\Http\Controllers\RT\IuranController::class);
+        Route::post('/iuran/bayar', [\App\Http\Controllers\RT\IuranController::class, 'bayar'])->name('iuran.bayar');
+        Route::get('/iuran/pembayaran', [\App\Http\Controllers\RT\IuranController::class, 'pembayaranIndex'])->name('iuran.pembayaran');
+        Route::resource('laporan', \App\Http\Controllers\RT\LaporanController::class);
+        Route::post('/laporan/{laporan}/tanggap', [\App\Http\Controllers\RT\LaporanController::class, 'tanggap'])->name('laporan.tanggap');
+        Route::resource('agenda', \App\Http\Controllers\RT\AgendaController::class);
+        Route::resource('kas', \App\Http\Controllers\RT\KasController::class);
+        Route::resource('ronda', \App\Http\Controllers\RT\RondaController::class);
+        Route::post('/ronda/jadwal', [\App\Http\Controllers\RT\RondaController::class, 'jadwalStore'])->name('ronda.jadwal-store');
+        Route::post('/ronda/laporan-keamanan', [\App\Http\Controllers\RT\RondaController::class, 'laporanKeamananStore'])->name('ronda.laporan-keamanan-store');
+        Route::resource('kalender', \App\Http\Controllers\RT\KalenderController::class)->parameters(['kalender' => 'kalender_event']);
+        Route::resource('portal-kos', \App\Http\Controllers\RT\PortalKoController::class)->parameters(['portal-kos' => 'portal_ko']);
+        Route::get('/direktori', function () {
+            return view('rt.direktori.index');
+        })->name('direktori');
     });
 
+    // === SISTEM MASJID ===
     Route::prefix('masjid')->name('masjid.')->group(function () {
-        Route::get('/dashboard', fn() => view('masjid.dashboard'))->name('dashboard');
-        Route::get('/jamaah', fn() => view('masjid.jamaah.index'))->name('jamaah');
-        Route::get('/keuangan', fn() => view('masjid.keuangan.index'))->name('keuangan');
-        Route::get('/donasi', fn() => view('masjid.donasi.index'))->name('donasi');
-        Route::get('/kajian', fn() => view('masjid.kajian.index'))->name('kajian');
-        Route::get('/inventaris', fn() => view('masjid.inventaris.index'))->name('inventaris');
-        Route::get('/kalender', fn() => view('masjid.kalender.index'))->name('kalender');
-        Route::get('/galeri', fn() => view('masjid.galeri.index'))->name('galeri');
+        Route::get('/dashboard', [\App\Http\Controllers\Masjid\DashboardController::class, 'index'])->name('dashboard');
+        Route::resource('jamaah', \App\Http\Controllers\Masjid\JamaahController::class)->parameters(['jamaah' => 'jamaah']);
+        Route::resource('keuangan', \App\Http\Controllers\Masjid\KeuanganController::class)->parameters(['keuangan' => 'keuangan_masjid']);
+        Route::resource('donasi', \App\Http\Controllers\Masjid\DonasiController::class);
+        Route::resource('kajian', \App\Http\Controllers\Masjid\KajianController::class);
+        Route::resource('inventaris', \App\Http\Controllers\Masjid\InventarisController::class)->parameters(['inventaris' => 'inventaris_masjid']);
+        Route::resource('kalender', \App\Http\Controllers\Masjid\KalenderController::class)->parameters(['kalender' => 'kalender_event']);
+        Route::resource('galeri', \App\Http\Controllers\Masjid\GaleriController::class);
     });
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

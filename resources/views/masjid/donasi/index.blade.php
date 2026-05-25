@@ -2,20 +2,7 @@
     <x-slot:title>Donasi & Zakat</x-slot:title>
     <x-slot:subtitle>Kelola donasi, infaq, sedekah, dan zakat</x-slot:subtitle>
 
-    @php
-        $donasi = [
-            ['tgl' => '25/05/2026', 'donatur' => 'H. Ahmad', 'jenis' => 'Donasi Pembangunan', 'jumlah' => 2000000, 'status' => 'Terkonfirmasi'],
-            ['tgl' => '24/05/2026', 'donatur' => 'Ibu Siti', 'jenis' => 'Sedekah', 'jumlah' => 500000, 'status' => 'Terkonfirmasi'],
-            ['tgl' => '23/05/2026', 'donatur' => 'Pak Budi', 'jenis' => 'Zakat Mal', 'jumlah' => 1000000, 'status' => 'Menunggu'],
-            ['tgl' => '22/05/2026', 'donatur' => 'Anonim', 'jenis' => 'Infaq', 'jumlah' => 250000, 'status' => 'Terkonfirmasi'],
-            ['tgl' => '21/05/2026', 'donatur' => 'Bpk. Hasan', 'jenis' => 'Zakat Fitrah', 'jumlah' => 450000, 'status' => 'Terkonfirmasi'],
-            ['tgl' => '20/05/2026', 'donatur' => 'Ibu Dewi', 'jenis' => 'Infaq', 'jumlah' => 300000, 'status' => 'Terkonfirmasi'],
-            ['tgl' => '19/05/2026', 'donatur' => 'H. Ahmad', 'jenis' => 'Infaq', 'jumlah' => 150000, 'status' => 'Terkonfirmasi'],
-        ];
-        $perPage = 5;
-    @endphp
-
-    <div x-data="dataDonasi({{ Js::from($donasi) }}, {{ $perPage }})">
+    <div x-data="dataDonasi({{ Js::from($donasi->items()) }}, {{ $donasi->perPage() }})">
         {{-- Stats --}}
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
             <x-ui.stats-card iconClass="bg-emerald-100 text-emerald-600">

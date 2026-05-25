@@ -2,28 +2,7 @@
     <x-slot:title>Laporan & Aspirasi</x-slot:title>
     <x-slot:subtitle>Laporan dan aspirasi dari warga RT 01</x-slot:subtitle>
 
-    @php
-        $laporan = [
-            ['warga' => 'Budi Santoso', 'judul' => 'Lampu Jalan Mati', 'isi' => 'Lampu jalan di depan rumah saya sudah mati selama 3 hari. Mohon segera diperbaiki karena sangat gelap di malam hari.', 'tgl' => '25/05/2026', 'status' => 'Diproses', 'kategori' => 'Infrastruktur', 'tanggapan' => 'Sedang kami koordinasikan dengan pihak kelurahan untuk penggantian lampu.'],
-            ['warga' => 'Siti Rahma', 'judul' => 'Usulan Program Kerja Bakti', 'isi' => 'Saya mengusulkan agar diadakan kerja bakti setiap hari Minggu untuk membersihkan selokan yang mulai tersumbat.', 'tgl' => '24/05/2026', 'status' => 'Selesai', 'kategori' => 'Kebersihan', 'tanggapan' => 'Program kerja bakti sudah dijadwalkan setiap Minggu pagi pukul 06.00. Terima kasih atas usulannya.'],
-            ['warga' => 'Ahmad Fauzi', 'judul' => 'Keamanan Lingkungan', 'isi' => 'Akhir-akhir ini ada beberapa orang mencurigakan yang sering berkeliaran di malam hari. Mohon tingkatkan ronda malam.', 'tgl' => '23/05/2026', 'status' => 'Menunggu', 'kategori' => 'Keamanan', 'tanggapan' => ''],
-            ['warga' => 'Rina Wijaya', 'judul' => 'Pengaduan Sampah', 'isi' => 'Tempat sampah di belakang rumah saya sudah penuh dan tidak diangkut selama seminggu. Mohon segera ditindaklanjuti.', 'tgl' => '22/05/2026', 'status' => 'Diproses', 'kategori' => 'Kebersihan', 'tanggapan' => 'Kami sudah menghubungi petugas kebersihan. Penjemputan akan dilakukan besok pagi.'],
-            ['warga' => 'Doni Prasetyo', 'judul' => 'Usulan Pos Kamling', 'isi' => 'Saya mengusulkan perbaikan pos kamling yang sudah mulai rusak agar bisa digunakan untuk ronda dengan nyaman.', 'tgl' => '21/05/2026', 'status' => 'Selesai', 'kategori' => 'Infrastruktur', 'tanggapan' => 'Pos kamling sudah diperbaiki dan dicat ulang. Terima kasih atas masukannya.'],
-            ['warga' => 'Fitriani', 'judul' => 'Jadwal Ronda Tidak Konsisten', 'isi' => 'Beberapa warga sering tidak hadir ronda tanpa konfirmasi. Mohon ada sanksi yang jelas.', 'tgl' => '20/05/2026', 'status' => 'Menunggu', 'kategori' => 'Keamanan', 'tanggapan' => ''],
-            ['warga' => 'Hendra Gunawan', 'judul' => 'Saluran Air Tersumbat', 'isi' => 'Saluran air di gang 3 tersumbat dan menyebabkan genangan saat hujan. Mohon segera diperbaiki.', 'tgl' => '19/05/2026', 'status' => 'Diproses', 'kategori' => 'Infrastruktur', 'tanggapan' => 'Sedang kami jadwalkan pembersihan saluran air minggu ini.'],
-            ['warga' => 'Dewi Sartika', 'judul' => 'Usulan Posyandu Balita', 'isi' => 'Saya mengusulkan diadakannya posyandu balita setiap hari Sabtu agar ibu-ibu yang kerja bisa ikut.', 'tgl' => '18/05/2026', 'status' => 'Selesai', 'kategori' => 'Kesehatan', 'tanggapan' => 'Posyandu balita sudah berjalan setiap hari Sabtu pukul 08.00-11.00.'],
-            ['warga' => 'Eko Prasetyo', 'judul' => 'Parkir Liar', 'isi' => 'Banyak mobil parkir di pinggir jalan utama sehingga menyulitkan pengguna jalan. Mohon ada penertiban.', 'tgl' => '17/05/2026', 'status' => 'Dibatalkan', 'kategori' => 'Lainnya', 'tanggapan' => 'Pengaduan dibatalkan karena lokasi parkir liar sudah ditertibkan oleh Satpol PP.'],
-            ['warga' => 'Ratna Dewi', 'judul' => 'Pengeras Suara Masjid', 'isi' => 'Suara pengeras masjid terlalu keras hingga mengganggu warga non-muslim. Mohon volume dikurangi.', 'tgl' => '16/05/2026', 'status' => 'Selesai', 'kategori' => 'Lainnya', 'tanggapan' => 'Sudah dikoordinasikan dengan pengurus masjid. Volume sudah disesuaikan.'],
-            ['warga' => 'Irfan Hakim', 'judul' => 'Usulan Tempat Olahraga', 'isi' => 'Lapangan kosong di RT kita bisa dimanfaatkan untuk tempat olahraga warga. Mohon dipertimbangkan.', 'tgl' => '15/05/2026', 'status' => 'Menunggu', 'kategori' => 'Infrastruktur', 'tanggapan' => ''],
-            ['warga' => 'Mega Wati', 'judul' => 'Pengaduan Tetangga Berisik', 'isi' => 'Tetangga saya sering memutar musik keras sampai larut malam. Sudah ditegur tapi tidak berubah.', 'tgl' => '14/05/2026', 'status' => 'Diproses', 'kategori' => 'Keamanan', 'tanggapan' => 'Kami akan mengirimkan surat teguran dan mediasi antara kedua pihak.'],
-            ['warga' => 'Rudi Hartono', 'judul' => 'Usulan Tempat Sampah', 'isi' => 'Mohon ditambah tempat sampah di setiap sudut gang karena masih banyak warga yang buang sampah sembarangan.', 'tgl' => '13/05/2026', 'status' => 'Selesai', 'kategori' => 'Kebersihan', 'tanggapan' => 'Tempat sampah sudah ditambahkan di 5 titik. Mohon digunakan dengan baik.'],
-            ['warga' => 'Agus Supriyadi', 'judul' => 'Laporan KTP Hilang', 'isi' => 'Saya kehilangan KTP saat perjalanan. Mohon bantuan untuk pengurusan surat keterangan hilang.', 'tgl' => '12/05/2026', 'status' => 'Dibatalkan', 'kategori' => 'Lainnya', 'tanggapan' => 'Pemohon sudah mengurus sendiri ke kelurahan. Laporan ditutup.'],
-            ['warga' => 'Desi Ratnasari', 'judul' => 'Usulan Internet Gratis', 'isi' => 'Saya mengusulkan adanya wifi gratis di balai RT untuk membantu warga yang membutuhkan akses internet.', 'tgl' => '11/05/2026', 'status' => 'Menunggu', 'kategori' => 'Infrastruktur', 'tanggapan' => ''],
-        ];
-        $perPage = 5;
-    @endphp
-
-    <div x-data="dataLaporan({{ Js::from($laporan) }}, {{ $perPage }})">
+    <div x-data="dataLaporan({{ Js::from($laporan->items()) }}, {{ $laporan->perPage() }})">
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {{-- Left: Daftar Laporan --}}
             <div class="lg:col-span-2 space-y-4">
@@ -140,24 +119,21 @@
                         <h3 class="text-base font-semibold text-text-primary">Kategori</h3>
                     </div>
                     <div class="card-body space-y-3">
-                        @php
-                            $kategori = [
-                                ['name' => 'Infrastruktur', 'count' => 15, 'color' => 'bg-blue-500'],
-                                ['name' => 'Kebersihan', 'count' => 12, 'color' => 'bg-emerald-500'],
-                                ['name' => 'Keamanan', 'count' => 10, 'color' => 'bg-rose-500'],
-                                ['name' => 'Kesehatan', 'count' => 6, 'color' => 'bg-cyan-500'],
-                                ['name' => 'Lainnya', 'count' => 4, 'color' => 'bg-slate-400'],
-                            ];
-                        @endphp
-                        @foreach ($kategori as $k)
+                        <template x-for="k in ['Infrastruktur', 'Kebersihan', 'Keamanan', 'Kesehatan', 'Lainnya']" :key="k">
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center gap-2">
-                                    <div class="w-2 h-2 rounded-full {{ $k['color'] }}"></div>
-                                    <span class="text-sm text-text-secondary">{{ $k['name'] }}</span>
+                                    <div class="w-2 h-2 rounded-full" :class="{
+                                        'bg-blue-500': k === 'Infrastruktur',
+                                        'bg-emerald-500': k === 'Kebersihan',
+                                        'bg-rose-500': k === 'Keamanan',
+                                        'bg-cyan-500': k === 'Kesehatan',
+                                        'bg-slate-400': k === 'Lainnya'
+                                    }"></div>
+                                    <span class="text-sm text-text-secondary" x-text="k"></span>
                                 </div>
-                                <span class="text-sm font-medium text-text-primary">{{ $k['count'] }}</span>
+                                <span class="text-sm font-medium text-text-primary" x-text="items.filter(i => i.kategori === k).length"></span>
                             </div>
-                        @endforeach
+                        </template>
                     </div>
                 </div>
             </div>

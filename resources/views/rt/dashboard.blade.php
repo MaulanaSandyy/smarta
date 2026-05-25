@@ -5,40 +5,36 @@
     {{-- Stats Cards --}}
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         <x-ui.stats-card
-            value="156"
+            value="{{ $totalWarga }}"
             label="Total Warga"
-            iconClass="bg-blue-100 text-blue-600"
-            :trend="['positive' => true, 'value' => '+12']">
+            iconClass="bg-blue-100 text-blue-600">
             <x-slot:icon>
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
             </x-slot:icon>
         </x-ui.stats-card>
 
         <x-ui.stats-card
-            value="45"
-            label="Keluarga"
-            iconClass="bg-emerald-100 text-emerald-600"
-            :trend="['positive' => true, 'value' => '+3']">
+            value="{{ $totalAgenda }}"
+            label="Total Agenda"
+            iconClass="bg-emerald-100 text-emerald-600">
             <x-slot:icon>
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
             </x-slot:icon>
         </x-ui.stats-card>
 
         <x-ui.stats-card
-            value="Rp 4.2jt"
-            label="Saldo Kas RT"
-            iconClass="bg-amber-100 text-amber-600"
-            :trend="['positive' => true, 'value' => '+Rp 850rb']">
+            value="Rp {{ number_format($totalIuran, 0, ',', '.') }}"
+            label="Total Iuran"
+            iconClass="bg-amber-100 text-amber-600">
             <x-slot:icon>
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
             </x-slot:icon>
         </x-ui.stats-card>
 
         <x-ui.stats-card
-            value="12"
+            value="{{ $totalSurat }}"
             label="Surat Baru"
-            iconClass="bg-rose-100 text-rose-600"
-            :trend="['positive' => false, 'value' => '-2']">
+            iconClass="bg-rose-100 text-rose-600">
             <x-slot:icon>
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
             </x-slot:icon>
@@ -56,26 +52,17 @@
                     </div>
                 </x-slot:header>
                 <div class="space-y-4">
-                    @php
-                        $activities = [
-                            ['user' => 'Budi Santoso', 'action' => 'mengajukan surat keterangan domisili', 'time' => '10 menit lalu', 'type' => 'surat'],
-                            ['user' => 'Siti Rahma', 'action' => 'melakukan pembayaran iuran bulan Mei', 'time' => '1 jam lalu', 'type' => 'payment'],
-                            ['user' => 'Ahmad Fauzi', 'action' => 'melaporkan kehilangan KTP', 'time' => '2 jam lalu', 'type' => 'laporan'],
-                            ['user' => 'Rina Wijaya', 'action' => 'mendaftar sebagai warga baru', 'time' => '3 jam lalu', 'type' => 'warga'],
-                            ['user' => 'Koordinator Hansip', 'action' => 'mengupdate jadwal ronda mingguan', 'time' => '5 jam lalu', 'type' => 'ronda'],
-                        ];
-                    @endphp
-                    @foreach ($activities as $activity)
+                    @foreach ($wargaTerbaru as $item)
                         <div class="flex items-start gap-3 pb-4 {{ !$loop->last ? 'border-b border-border' : '' }}">
                             <div class="w-8 h-8 rounded-full bg-primary-100 text-primary-600 flex items-center justify-center text-xs font-semibold flex-shrink-0">
-                                {{ substr($activity['user'], 0, 1) }}
+                                {{ substr($item->nama, 0, 1) }}
                             </div>
                             <div class="flex-1 min-w-0">
                                 <p class="text-sm text-text-primary">
-                                    <span class="font-medium">{{ $activity['user'] }}</span>
-                                    <span class="text-text-secondary"> {{ $activity['action'] }}</span>
+                                    <span class="font-medium">{{ $item->nama }}</span>
+                                    <span class="text-text-secondary"> terdaftar sebagai warga</span>
                                 </p>
-                                <p class="text-xs text-text-muted mt-0.5">{{ $activity['time'] }}</p>
+                                <p class="text-xs text-text-muted mt-0.5">{{ $item->created_at->diffForHumans() }}</p>
                             </div>
                         </div>
                     @endforeach
@@ -94,51 +81,35 @@
                     </div>
                 </x-slot:header>
                 <div class="space-y-3">
-                    @php
-                        $announcements = [
-                            ['title' => 'Kerja Bakti Minggu Ini', 'date' => '25 Mei 2026', 'badge' => 'Baru'],
-                            ['title' => 'Pembayaran Iuran Bulan Juni', 'date' => '20 Mei 2026', 'badge' => 'Penting'],
-                            ['title' => 'Pengajian Rutin Malam Jumat', 'date' => '18 Mei 2026', 'badge' => 'Info'],
-                        ];
-                    @endphp
-                    @foreach ($announcements as $announcement)
+                    @foreach ($suratTerbaru as $item)
                         <div class="p-3 rounded-xl bg-surface-secondary hover:bg-surface-tertiary transition-colors cursor-pointer"
                              @click="window['modal-pengumuman'].open()">
                             <div class="flex items-start justify-between gap-2">
                                 <div>
-                                    <p class="text-sm font-medium text-text-primary">{{ $announcement['title'] }}</p>
-                                    <p class="text-xs text-text-muted mt-0.5">{{ $announcement['date'] }}</p>
+                                    <p class="text-sm font-medium text-text-primary">{{ $item->jenis_surat }}</p>
+                                    <p class="text-xs text-text-muted mt-0.5">{{ $item->tanggal_pengajuan ? \Carbon\Carbon::parse($item->tanggal_pengajuan)->format('d M Y') : '-' }}</p>
                                 </div>
-                                <span class="badge-primary text-[10px] px-2 py-0.5 flex-shrink-0">{{ $announcement['badge'] }}</span>
+                                <span class="badge-primary text-[10px] px-2 py-0.5 flex-shrink-0">{{ $item->status }}</span>
                             </div>
                         </div>
                     @endforeach
                 </div>
             </x-ui.card>
 
-            {{-- Iuran Terbaru --}}
+            {{-- Agenda Mendatang --}}
             <x-ui.card>
                 <x-slot:header>
                     <div class="flex items-center justify-between">
-                        <h3 class="text-base font-semibold text-text-primary">Iuran Terbaru</h3>
-                        <span class="badge-success">Lunas 32/45</span>
+                        <h3 class="text-base font-semibold text-text-primary">Agenda Mendatang</h3>
                     </div>
                 </x-slot:header>
                 <div class="space-y-2">
-                    @php
-                        $payments = [
-                            ['name' => 'Keluarga Budi', 'amount' => 'Rp 50.000', 'status' => 'Lunas', 'date' => 'Hari ini'],
-                            ['name' => 'Keluarga Siti', 'amount' => 'Rp 50.000', 'status' => 'Lunas', 'date' => 'Kemarin'],
-                            ['name' => 'Keluarga Agus', 'amount' => 'Rp 50.000', 'status' => 'Pending', 'date' => '2 hari lalu'],
-                            ['name' => 'Keluarga Dewi', 'amount' => 'Rp 50.000', 'status' => 'Lunas', 'date' => '3 hari lalu'],
-                        ];
-                    @endphp
-                    @foreach ($payments as $payment)
+                    @foreach ($agendaMendatang as $item)
                         <div class="flex items-center justify-between py-2">
-                            <span class="text-sm text-text-primary">{{ $payment['name'] }}</span>
+                            <span class="text-sm text-text-primary">{{ $item->judul }}</span>
                             <div class="text-right">
-                                <p class="text-sm font-medium text-text-primary">{{ $payment['amount'] }}</p>
-                                <span class="{{ $payment['status'] === 'Lunas' ? 'badge-success' : 'badge-warning' }} text-[10px]">{{ $payment['status'] }}</span>
+                                <p class="text-sm font-medium text-text-primary">{{ $item->tanggal ? \Carbon\Carbon::parse($item->tanggal)->format('d M Y') : '-' }}</p>
+                                <span class="badge-primary text-[10px]">{{ $item->kategori }}</span>
                             </div>
                         </div>
                     @endforeach
@@ -150,28 +121,17 @@
     {{-- Modal Aktivitas --}}
     <x-ui.modal name="aktivitas" header="Semua Aktivitas">
         <div class="space-y-4">
-            @php
-                $allActivities = array_merge($activities, [
-                    ['user' => 'Doni Prasetyo', 'action' => 'memperbarui data keluarga', 'time' => '6 jam lalu', 'type' => 'warga'],
-                    ['user' => 'Desi Ratnasari', 'action' => 'mengajukan surat pindah', 'time' => '8 jam lalu', 'type' => 'surat'],
-                    ['user' => 'Bapak RT', 'action' => 'mengesahkan pengajuan surat', 'time' => '12 jam lalu', 'type' => 'surat'],
-                    ['user' => 'Sekretaris', 'action' => 'membuat laporan bulanan', 'time' => '1 hari lalu', 'type' => 'laporan'],
-                    ['user' => 'Bendahara', 'action' => 'mencatat pemasukan iuran', 'time' => '1 hari lalu', 'type' => 'payment'],
-                    ['user' => 'Koordinator Hansip', 'action' => 'mengumumkan jadwal ronda', 'time' => '2 hari lalu', 'type' => 'ronda'],
-                    ['user' => 'Ahmad Fauzi', 'action' => 'melaporkan perubahan KK', 'time' => '2 hari lalu', 'type' => 'laporan'],
-                ]);
-            @endphp
-            @foreach ($allActivities as $activity)
+            @foreach ($wargaTerbaru as $item)
                 <div class="flex items-start gap-3 pb-4 {{ !$loop->last ? 'border-b border-border' : '' }}">
                     <div class="w-8 h-8 rounded-full bg-primary-100 text-primary-600 flex items-center justify-center text-xs font-semibold flex-shrink-0">
-                        {{ substr($activity['user'], 0, 1) }}
+                        {{ substr($item->nama, 0, 1) }}
                     </div>
                     <div class="flex-1 min-w-0">
                         <p class="text-sm text-text-primary">
-                            <span class="font-medium">{{ $activity['user'] }}</span>
-                            <span class="text-text-secondary"> {{ $activity['action'] }}</span>
+                            <span class="font-medium">{{ $item->nama }}</span>
+                            <span class="text-text-secondary"> terdaftar sebagai warga</span>
                         </p>
-                        <p class="text-xs text-text-muted mt-0.5">{{ $activity['time'] }}</p>
+                        <p class="text-xs text-text-muted mt-0.5">{{ $item->created_at->diffForHumans() }}</p>
                     </div>
                 </div>
             @endforeach
@@ -181,22 +141,14 @@
     {{-- Modal Pengumuman --}}
     <x-ui.modal name="pengumuman" header="Semua Pengumuman">
         <div class="space-y-3">
-            @php
-                $allAnnouncements = array_merge($announcements, [
-                    ['title' => 'Perubahan Jadwal Posyandu', 'date' => '15 Mei 2026', 'badge' => 'Info'],
-                    ['title' => 'Pendaftaran Lomba 17 Agustus', 'date' => '10 Mei 2026', 'badge' => 'Info'],
-                    ['title' => 'Peringatan Dini Cuaca Ekstrem', 'date' => '8 Mei 2026', 'badge' => 'Penting'],
-                    ['title' => 'Rapat Warga Bulanan', 'date' => '5 Mei 2026', 'badge' => 'Info'],
-                ]);
-            @endphp
-            @foreach ($allAnnouncements as $a)
+            @foreach ($suratTerbaru as $item)
                 <div class="p-4 rounded-xl bg-surface-secondary hover:bg-surface-tertiary transition-colors">
                     <div class="flex items-start justify-between gap-2">
                         <div>
-                            <p class="text-sm font-medium text-text-primary">{{ $a['title'] }}</p>
-                            <p class="text-xs text-text-muted mt-0.5">{{ $a['date'] }}</p>
+                            <p class="text-sm font-medium text-text-primary">{{ $item->jenis_surat }}</p>
+                            <p class="text-xs text-text-muted mt-0.5">{{ $item->tanggal_pengajuan ? \Carbon\Carbon::parse($item->tanggal_pengajuan)->format('d M Y') : '-' }}</p>
                         </div>
-                        <span class="badge-primary text-[10px] px-2 py-0.5 flex-shrink-0">{{ $a['badge'] }}</span>
+                        <span class="badge-primary text-[10px] px-2 py-0.5 flex-shrink-0">{{ $item->status }}</span>
                     </div>
                 </div>
             @endforeach

@@ -2,19 +2,7 @@
     <x-slot:title>Agenda Kegiatan</x-slot:title>
     <x-slot:subtitle>Jadwal kegiatan lingkungan RT 01</x-slot:subtitle>
 
-    @php
-        $agenda = [
-            ['tgl' => '25', 'hari' => 'Senin', 'bulan' => 'Mei', 'judul' => 'Posyandu Balita', 'waktu' => '08:00 - 11:00', 'tempat' => 'Balai RT', 'desc' => 'Pelayanan posyandu untuk balita dan ibu hamil.', 'badge' => 'Kesehatan', 'badgeClass' => 'badge-success'],
-            ['tgl' => '26', 'hari' => 'Selasa', 'bulan' => 'Mei', 'judul' => 'Rapat RT Bulanan', 'waktu' => '19:00 - 21:00', 'tempat' => 'Rumah Ketua RT', 'desc' => 'Rapat evaluasi kegiatan bulan ini dan perencanaan bulan depan.', 'badge' => 'Rapat', 'badgeClass' => 'badge-primary'],
-            ['tgl' => '28', 'hari' => 'Kamis', 'bulan' => 'Mei', 'judul' => 'Kerja Bakti Lingkungan', 'waktu' => '07:00 - 10:00', 'tempat' => 'Lingkungan RT 01', 'desc' => 'Kerja bakti membersihkan selokan dan lingkungan sekitar.', 'badge' => 'Kegiatan', 'badgeClass' => 'badge-warning'],
-            ['tgl' => '30', 'hari' => 'Sabtu', 'bulan' => 'Mei', 'judul' => 'Pengajian Akbar', 'waktu' => 'Ba\'da Maghrib', 'tempat' => 'Masjid Al-Barakah', 'desc' => 'Pengajian akbar dengan tema "Memperkuat Silaturahmi Antar Warga".', 'badge' => 'Keagamaan', 'badgeClass' => 'badge-primary'],
-            ['tgl' => '31', 'hari' => 'Minggu', 'bulan' => 'Mei', 'judul' => 'Senam Pagi Bersama', 'waktu' => '06:00 - 07:30', 'tempat' => 'Lapangan RT', 'desc' => 'Senam pagi bersama untuk menjaga kesehatan warga.', 'badge' => 'Olahraga', 'badgeClass' => 'badge-success'],
-        ];
-        $bulan = 5;
-        $tahun = 2026;
-    @endphp
-
-    <div x-data="dataAgenda({{ Js::from($agenda) }}, {{ $bulan }}, {{ $tahun }})">
+    <div x-data="dataAgenda({{ Js::from($agenda->items()) }}, {{ now()->month }}, {{ now()->year }})">
         <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 mb-6">
             <div class="flex items-center justify-between sm:justify-start gap-2">
                 <button class="btn-secondary btn-sm">

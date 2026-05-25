@@ -2,25 +2,7 @@
     <x-slot:title>Pengajuan Surat</x-slot:title>
     <x-slot:subtitle>Kelola pengajuan surat warga</x-slot:subtitle>
 
-    @php
-        $surat = [
-            ['no' => 'SRT/001/V/2026', 'pemohon' => 'Budi Santoso', 'jenis' => 'SK Domisili', 'tgl' => '25/05/2026', 'status' => 'Selesai'],
-            ['no' => 'SRT/002/V/2026', 'pemohon' => 'Siti Rahma', 'jenis' => 'SK Tidak Mampu', 'tgl' => '24/05/2026', 'status' => 'Diproses'],
-            ['no' => 'SRT/003/V/2026', 'pemohon' => 'Ahmad Fauzi', 'jenis' => 'SK Usaha', 'tgl' => '23/05/2026', 'status' => 'Menunggu'],
-            ['no' => 'SRT/004/V/2026', 'pemohon' => 'Rina Wijaya', 'jenis' => 'SK Domisili', 'tgl' => '22/05/2026', 'status' => 'Menunggu'],
-            ['no' => 'SRT/005/V/2026', 'pemohon' => 'Doni Prasetyo', 'jenis' => 'SK Kehilangan', 'tgl' => '21/05/2026', 'status' => 'Selesai'],
-            ['no' => 'SRT/006/V/2026', 'pemohon' => 'Desi Ratnasari', 'jenis' => 'SK Domisili', 'tgl' => '20/05/2026', 'status' => 'Diproses'],
-            ['no' => 'SRT/007/V/2026', 'pemohon' => 'Hendra Gunawan', 'jenis' => 'SK Usaha', 'tgl' => '19/05/2026', 'status' => 'Menunggu'],
-            ['no' => 'SRT/008/V/2026', 'pemohon' => 'Fitriani', 'jenis' => 'SK Tidak Mampu', 'tgl' => '18/05/2026', 'status' => 'Selesai'],
-            ['no' => 'SRT/009/V/2026', 'pemohon' => 'Agus Supriyadi', 'jenis' => 'SK Kehilangan', 'tgl' => '17/05/2026', 'status' => 'Menunggu'],
-            ['no' => 'SRT/010/V/2026', 'pemohon' => 'Dewi Sartika', 'jenis' => 'SK Domisili', 'tgl' => '16/05/2026', 'status' => 'Diproses'],
-            ['no' => 'SRT/011/V/2026', 'pemohon' => 'Eko Prasetyo', 'jenis' => 'SK Usaha', 'tgl' => '15/05/2026', 'status' => 'Selesai'],
-            ['no' => 'SRT/012/V/2026', 'pemohon' => 'Ratna Dewi', 'jenis' => 'SK Tidak Mampu', 'tgl' => '14/05/2026', 'status' => 'Menunggu'],
-        ];
-        $perPage = 5;
-    @endphp
-
-    <div x-data="dataSurat({{ Js::from($surat) }}, {{ $perPage }})">
+    <div x-data="dataSurat({{ Js::from($pengajuanSurat->items()) }}, {{ $pengajuanSurat->perPage() }})">
         {{-- Filters --}}
         <div class="bg-(--surface) border border-border rounded-2xl p-4 shadow-sm mb-6">
             <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">

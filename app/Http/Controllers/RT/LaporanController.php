@@ -8,59 +8,85 @@ use Illuminate\Http\Request;
 
 class LaporanController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $laporan = Laporan::latest()->paginate(10);
+        return view('rt.laporan.index', compact('laporan'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view('rt.laporan.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'user_id' => 'nullable|exists:users,id',
+            'warga_id' => 'required|exists:warga,id',
+            'judul' => 'required|string|max:255',
+            'isi' => 'required|string',
+            'kategori' => 'required|string|max:100',
+            'status' => 'required|string|max:50',
+            'tanggapan' => 'nullable|string',
+            'tanggal_laporan' => 'required|date',
+            'tanggal_ditanggapi' => 'nullable|date',
+        ]);
+
+        Laporan::create($validated);
+
+        return redirect()->route('rt.laporan.index')->with('success', 'Laporan berhasil ditambahkan.');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Laporan $laporan)
     {
-        //
+        return view('rt.laporan.show', compact('laporan'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Laporan $laporan)
     {
-        //
+        return view('rt.laporan.edit', compact('laporan'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Laporan $laporan)
     {
-        //
+        $validated = $request->validate([
+            'user_id' => 'nullable|exists:users,id',
+            'warga_id' => 'required|exists:warga,id',
+            'judul' => 'required|string|max:255',
+            'isi' => 'required|string',
+            'kategori' => 'required|string|max:100',
+            'status' => 'required|string|max:50',
+            'tanggapan' => 'nullable|string',
+            'tanggal_laporan' => 'required|date',
+            'tanggal_ditanggapi' => 'nullable|date',
+        ]);
+
+        $laporan->update($validated);
+
+        return redirect()->route('rt.laporan.index')->with('success', 'Laporan berhasil diperbarui.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Laporan $laporan)
     {
-        //
+        $laporan->delete();
+
+        return redirect()->route('rt.laporan.index')->with('success', 'Laporan berhasil dihapus.');
+    }
+
+    public function tanggap(Request $request, Laporan $laporan)
+    {
+        $validated = $request->validate([
+            'tanggapan' => 'required|string',
+            'status' => 'required|string|max:50',
+        ]);
+
+        $laporan->update([
+            'tanggapan' => $validated['tanggapan'],
+            'status' => $validated['status'],
+            'tanggal_ditanggapi' => now(),
+        ]);
+
+        return redirect()->route('rt.laporan.index')->with('success', 'Tanggapan laporan berhasil dikirim.');
     }
 }
