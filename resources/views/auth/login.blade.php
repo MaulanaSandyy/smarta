@@ -154,8 +154,11 @@
 
 <script>
 function loginAs(title, role) {
-    const user = { name: title, title: title, email: role === 'rt' ? 'ketua@rt01.test' : 'ketua@masjid.test', initial: title.charAt(0) };
+    const email = role === 'rt' ? 'ketua@rt01.test' : 'ketua@masjid.test';
+    const user = { name: title, title: title, email: email, initial: title.charAt(0) };
     localStorage.setItem('smarta_user', JSON.stringify(user));
-    window.location.href = '/pilih-sistem';
+    document.getElementById('email').value = email;
+    document.getElementById('password').value = 'password';
+    document.querySelector('form')?.submit();
 }
 </script>
