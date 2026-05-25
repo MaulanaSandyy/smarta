@@ -18,10 +18,19 @@ Route::get('/pilih-sistem', function () {
 })->name('pilih-sistem');
 
 Route::post('/demo-login', function (\Illuminate\Http\Request $request) {
-    $email = $request->input('role') === 'masjid' ? 'ketua@masjid.test' : 'ketua@rt01.test';
+    $role = $request->input('role');
+    $email = match ($role) {
+        'masjid' => 'ketua@masjid.test',
+        'super-admin' => 'admin@smarta.test',
+        default => 'ketua@rt01.test',
+    };
     if (\Illuminate\Support\Facades\Auth::attempt(['email' => $email, 'password' => 'password'])) {
         $request->session()->regenerate();
-        $title = $request->input('role') === 'masjid' ? 'Ketua DKM' : 'Ketua RT';
+        $title = match ($role) {
+            'masjid' => 'Ketua DKM',
+            'super-admin' => 'Super Admin',
+            default => 'Ketua RT',
+        };
         $user = ['name' => $title, 'title' => $title, 'email' => $email, 'initial' => $title[0]];
         session(['smarta_user' => $user]);
         return redirect()->route('pilih-sistem');
