@@ -92,6 +92,32 @@
         --text-muted: #64748b;
     }
 
+    .masjid-theme {
+        --color-primary-50: #ecfdf5;
+        --color-primary-100: #d1fae5;
+        --color-primary-200: #a7f3d0;
+        --color-primary-300: #6ee7b7;
+        --color-primary-400: #34d399;
+        --color-primary-500: #10b981;
+        --color-primary-600: #059669;
+        --color-primary-700: #047857;
+        --color-primary-800: #065f46;
+        --color-primary-900: #064e3b;
+    }
+
+    .dark .masjid-theme {
+        --color-primary-50: #022c22;
+        --color-primary-100: #064e3b;
+        --color-primary-200: #065f46;
+        --color-primary-300: #047857;
+        --color-primary-400: #059669;
+        --color-primary-500: #10b981;
+        --color-primary-600: #34d399;
+        --color-primary-700: #6ee7b7;
+        --color-primary-800: #a7f3d0;
+        --color-primary-900: #d1fae5;
+    }
+
     body {
         @apply font-sans antialiased;
         background-color: var(--surface-secondary);

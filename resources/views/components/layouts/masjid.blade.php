@@ -1,5 +1,5 @@
 <x-layouts.app>
-    <div class="min-h-screen flex" x-data="sidebar()">
+    <div class="min-h-screen flex masjid-theme" x-data="sidebar()">
         <div x-show="isMobileOpen"
              x-transition:enter="transition-opacity duration-300"
              x-transition:leave="transition-opacity duration-300"
