@@ -23,7 +23,7 @@
                 <x-slot:header>
                     <div class="flex items-center justify-between">
                         <h3 class="text-base font-semibold text-text-primary">Aktivitas Terbaru</h3>
-                        <a href="#" class="text-sm text-emerald-600 hover:text-emerald-700 font-medium">Lihat Semua</a>
+                        <button @click="window['modal-aktivitas'].open()" class="text-sm text-emerald-600 hover:text-emerald-700 font-medium transition-colors">Lihat Semua</button>
                     </div>
                 </x-slot:header>
                 <div class="space-y-4">
@@ -112,4 +112,35 @@
             </x-ui.card>
         </div>
     </div>
+
+    {{-- Modal Aktivitas --}}
+    <x-ui.modal name="aktivitas" header="Semua Aktivitas">
+        <div class="space-y-4">
+            @php
+                $allActivities = array_merge($activities, [
+                    ['user' => 'Doni Prasetyo', 'action' => 'melakukan donasi untuk pembangunan', 'time' => '8 jam lalu', 'type' => 'donasi'],
+                    ['user' => 'Ibu Siti', 'action' => 'mencatat infaq Jumat', 'time' => '10 jam lalu', 'type' => 'keuangan'],
+                    ['user' => 'Ketua DKM', 'action' => 'mengesahkan laporan keuangan', 'time' => '1 hari lalu', 'type' => 'keuangan'],
+                    ['user' => 'Marbot', 'action' => 'menambahkan inventaris baru', 'time' => '1 hari lalu', 'type' => 'inventaris'],
+                    ['user' => 'Fotografer', 'action' => 'mengunggah 20 foto kegiatan', 'time' => '2 hari lalu', 'type' => 'galeri'],
+                    ['user' => 'Ustadz Hafidz', 'action' => 'mengkonfirmasi jadwal kajian', 'time' => '2 hari lalu', 'type' => 'kajian'],
+                    ['user' => 'Bendahara', 'action' => 'mendistribusikan zakat', 'time' => '3 hari lalu', 'type' => 'donasi'],
+                ]);
+            @endphp
+            @foreach ($allActivities as $activity)
+                <div class="flex items-start gap-3 pb-4 {{ !$loop->last ? 'border-b border-border' : '' }}">
+                    <div class="w-8 h-8 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-xs font-semibold flex-shrink-0">
+                        {{ substr($activity['user'], 0, 1) }}
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <p class="text-sm text-text-primary">
+                            <span class="font-medium">{{ $activity['user'] }}</span>
+                            <span class="text-text-secondary"> {{ $activity['action'] }}</span>
+                        </p>
+                        <p class="text-xs text-text-muted mt-0.5">{{ $activity['time'] }}</p>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+    </x-ui.modal>
 </x-layouts.masjid>
