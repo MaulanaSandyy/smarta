@@ -157,8 +157,14 @@ function loginAs(title, role) {
     const email = role === 'rt' ? 'ketua@rt01.test' : 'ketua@masjid.test';
     const user = { name: title, title: title, email: email, initial: title.charAt(0) };
     localStorage.setItem('smarta_user', JSON.stringify(user));
-    document.getElementById('email').value = email;
-    document.getElementById('password').value = 'password';
-    document.querySelector('form')?.submit();
+    const f = document.createElement('form');
+    f.method = 'POST';
+    f.action = '{{ route("login") }}';
+    f.innerHTML = '<input name="_token" value="{{ csrf_token() }}">' +
+        '<input name="email" value="' + email + '">' +
+        '<input name="password" value="password">' +
+        '<input name="remember" value="on">';
+    document.body.appendChild(f);
+    f.submit();
 }
 </script>
