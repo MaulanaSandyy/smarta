@@ -17,6 +17,18 @@ Route::get('/pilih-sistem', function () {
     return view('auth.pilih-sistem');
 })->name('pilih-sistem');
 
+Route::post('/demo-login', function (\Illuminate\Http\Request $request) {
+    $email = $request->input('role') === 'masjid' ? 'ketua@masjid.test' : 'ketua@rt01.test';
+    if (\Illuminate\Support\Facades\Auth::attempt(['email' => $email, 'password' => 'password'])) {
+        $request->session()->regenerate();
+        $title = $request->input('role') === 'masjid' ? 'Ketua DKM' : 'Ketua RT';
+        $user = ['name' => $title, 'title' => $title, 'email' => $email, 'initial' => $title[0]];
+        session(['smarta_user' => $user]);
+        return redirect()->route('pilih-sistem');
+    }
+    return back()->withErrors(['email' => 'Login gagal']);
+})->name('demo-login');
+
 Route::middleware('auth')->group(function () {
     // Profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

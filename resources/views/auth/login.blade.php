@@ -159,11 +159,9 @@ function loginAs(title, role) {
     localStorage.setItem('smarta_user', JSON.stringify(user));
     const f = document.createElement('form');
     f.method = 'POST';
-    f.action = '{{ route("login") }}';
+    f.action = '{{ route("demo-login") }}';
     f.innerHTML = '<input name="_token" value="{{ csrf_token() }}">' +
-        '<input name="email" value="' + email + '">' +
-        '<input name="password" value="password">' +
-        '<input name="remember" value="on">';
+        '<input name="role" value="' + role + '">';
     document.body.appendChild(f);
     f.submit();
 }
