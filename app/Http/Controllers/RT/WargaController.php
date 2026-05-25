@@ -23,7 +23,7 @@ class WargaController extends Controller
     {
         $validated = $request->validate([
             'user_id' => 'nullable|exists:users,id',
-            'nik' => 'required|string|size:16|unique:warga,nik',
+            'nik' => 'required|string|size:16|unique:wargas,nik',
             'kk' => 'required|string|size:16',
             'nama' => 'required|string|max:255',
             'tempat_lahir' => 'required|string|max:255',
@@ -65,7 +65,7 @@ class WargaController extends Controller
     {
         $validated = $request->validate([
             'user_id' => 'nullable|exists:users,id',
-            'nik' => 'required|string|size:16|unique:warga,nik,' . $warga->id,
+            'nik' => 'required|string|size:16|unique:wargas,nik,' . $warga->id,
             'kk' => 'required|string|size:16',
             'nama' => 'required|string|max:255',
             'tempat_lahir' => 'required|string|max:255',
