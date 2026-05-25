@@ -17,6 +17,7 @@ import dataPortalKos from './components/data-portal-kos';
 import dataJamaah from './components/data-jamaah';
 import dataKeuangan from './components/data-keuangan';
 import dataDonasi from './components/data-donasi';
+import dataKajian from './components/data-kajian';
 
 window.Alpine = Alpine;
 
@@ -63,6 +64,9 @@ window.dataKeuangan = function(items, perPage) {
 };
 window.dataDonasi = function(items, perPage) {
     return dataDonasi(items, perPage);
+};
+window.dataKajian = function() {
+    return dataKajian();
 };
 
 Alpine.start();
