@@ -18,6 +18,7 @@ import dataJamaah from './components/data-jamaah';
 import dataKeuangan from './components/data-keuangan';
 import dataDonasi from './components/data-donasi';
 import dataKajian from './components/data-kajian';
+import dataInventaris from './components/data-inventaris';
 
 window.Alpine = Alpine;
 
@@ -67,6 +68,9 @@ window.dataDonasi = function(items, perPage) {
 };
 window.dataKajian = function() {
     return dataKajian();
+};
+window.dataInventaris = function() {
+    return dataInventaris();
 };
 
 Alpine.start();
