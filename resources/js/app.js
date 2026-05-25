@@ -19,6 +19,7 @@ import dataKeuangan from './components/data-keuangan';
 import dataDonasi from './components/data-donasi';
 import dataKajian from './components/data-kajian';
 import dataInventaris from './components/data-inventaris';
+import dataKalenderMasjid from './components/data-kalender-masjid';
 
 window.Alpine = Alpine;
 
@@ -71,6 +72,9 @@ window.dataKajian = function() {
 };
 window.dataInventaris = function() {
     return dataInventaris();
+};
+window.dataKalenderMasjid = function() {
+    return dataKalenderMasjid();
 };
 
 Alpine.start();
